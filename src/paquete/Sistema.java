@@ -345,7 +345,7 @@ public class Sistema
 			admin.rondaDeEncuentrosLaborales(usuario);
 		} catch (ListaNoGeneradaException e)
 		{
-			e.getMessage();
+			System.out.println(e.getNombreDeUsuario() + " no se pudo realizar correctamente la ronda de Encuentros Laborales. Lista no generada.");
 		}
 	}
 
@@ -371,7 +371,7 @@ public class Sistema
 			System.out.println("'" + e.getNombreDeUsuario() + "' es un nombre de usuario incorrecto.");
 		} catch (ContraseniaIncorrectaException e)
 		{
-			System.out.println("Contraseña incorrecta");
+			System.out.println("Usuario: " + e.getNombreDeUsuario() + " -- Contraseña: "  + e.getContrasenia() + " incorrecta. Intente loguearse nuevamente.");
 		}
 
 		return respuesta;
@@ -439,7 +439,7 @@ public class Sistema
 		if (respuesta != null)
 			return respuesta;
 		else
-			throw new ContraseniaIncorrectaException();
+			throw new ContraseniaIncorrectaException(nombreDeUsuario,contrasenia);
 	}
 
 	/**

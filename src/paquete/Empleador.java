@@ -428,7 +428,7 @@ public class Empleador extends UsuarioInteractivo {
 				this.rondaElecciones(this, num);
 				
 			} else
-				throw new ListaNoGeneradaException("La lista del empleador "+ this.getNombre() +"No existe");
+				throw new ListaNoGeneradaException(this.getNombreDeUsuario());
 		}
 	}
 	
