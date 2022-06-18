@@ -322,8 +322,7 @@ public class Empleado extends UsuarioInteractivo {
 	 *@param formulario: formulario que se tendrá en cuenta para realizar los cálculos <br>
 	 */
 	@Override
-    public void calcularComision(FormularioDeBusqueda formulario)
-    {
+    public void calcularComision(FormularioDeBusqueda formulario){
         super.calcularComision(formulario);
         System.out.println(formulario.getTipoPuesto().calcularComision(formulario.getRemuneracion().getValor())-this.getPuntaje()*0.01);
     }

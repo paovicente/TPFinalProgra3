@@ -45,57 +45,60 @@ public class FormularioFactory
     	
     	FormularioDeBusqueda respuesta = new FormularioDeBusqueda();
     	
-    	if(locacion == 1)
-    	    respuesta.setLocacion(new HomeOffice());
-    	else if (locacion == 2)
-    	    respuesta.setLocacion(new Indistinto());
-    	else if (locacion == 3)
-    	    respuesta.setLocacion(new Presencial());
-    
-    	if (remuneracion == 1) 
-    		respuesta.setRemuneracion(new V1());
-    	else if (remuneracion == 2)
-    		respuesta.setRemuneracion(new V2());
-    	else if (remuneracion == 3)
-    		respuesta.setRemuneracion(new V3());
-    	
-    	if (cargaHoraria == 1) 
-    		respuesta.setCargahoraria(new CargaMedia());
-    	else if (cargaHoraria == 2)
-    		respuesta.setCargahoraria(new CargaCompleta());
-    	else if (cargaHoraria == 3)
-    		respuesta.setCargahoraria(new CargaExtendida());   	
-
-    	if (tipoPuesto == 1) 
-    		respuesta.setTipoPuesto(new Junior());
-    	else if (tipoPuesto == 2)
-    		respuesta.setTipoPuesto(new Senior());
-    	else if (tipoPuesto == 3)
-    		respuesta.setTipoPuesto(new Management());
-    	
-    	if (rangoEtario == 1) 
-    		respuesta.setRangoEtario(new MenosDe40());
-    	else if (rangoEtario == 2)
-    		respuesta.setRangoEtario(new Entre40y50());
-    	else if (rangoEtario == 3)
-    		respuesta.setRangoEtario(new MasDe50());
-    	
-    	if (experiencia == 1) 
-    		respuesta.setExperiencia(new Nada());
-    	else if (experiencia == 2)
-    		respuesta.setExperiencia(new Media());
-    	else if (experiencia == 3)
-    		respuesta.setExperiencia(new Mucha());
-    	
-    	if (estudiosCursados == 1) 
-    		respuesta.setEstudiosCursados(new Primario());
-    	else if (estudiosCursados == 2)
-    		respuesta.setEstudiosCursados(new Secundario());
-    	else if (estudiosCursados == 3)
-    		respuesta.setEstudiosCursados(new Terciario());
-    	
-    	return respuesta;
-    	
+    	if ((locacion>=1 && locacion<=3) && (remuneracion>=1 && remuneracion<=3) && (cargaHoraria>=1 && cargaHoraria<=3) && (tipoPuesto>=1 && tipoPuesto<=3) &&
+    			(rangoEtario>=1 && rangoEtario<=3) && (experiencia>=1 && experiencia<=3) && (estudiosCursados>=1 && estudiosCursados<=3)) {
+    		
+	    	if(locacion == 1)
+	    	    respuesta.setLocacion(new HomeOffice());
+	    	else if (locacion == 2)
+	    	    respuesta.setLocacion(new Indistinto());
+	    	else if (locacion == 3)
+	    	    respuesta.setLocacion(new Presencial());
+	    
+	    	if (remuneracion == 1) 
+	    		respuesta.setRemuneracion(new V1());
+	    	else if (remuneracion == 2)
+	    		respuesta.setRemuneracion(new V2());
+	    	else if (remuneracion == 3)
+	    		respuesta.setRemuneracion(new V3());
+	    	
+	    	if (cargaHoraria == 1) 
+	    		respuesta.setCargahoraria(new CargaMedia());
+	    	else if (cargaHoraria == 2)
+	    		respuesta.setCargahoraria(new CargaCompleta());
+	    	else if (cargaHoraria == 3)
+	    		respuesta.setCargahoraria(new CargaExtendida());   	
+	
+	    	if (tipoPuesto == 1) 
+	    		respuesta.setTipoPuesto(new Junior());
+	    	else if (tipoPuesto == 2)
+	    		respuesta.setTipoPuesto(new Senior());
+	    	else if (tipoPuesto == 3)
+	    		respuesta.setTipoPuesto(new Management());
+	    	
+	    	if (rangoEtario == 1) 
+	    		respuesta.setRangoEtario(new MenosDe40());
+	    	else if (rangoEtario == 2)
+	    		respuesta.setRangoEtario(new Entre40y50());
+	    	else if (rangoEtario == 3)
+	    		respuesta.setRangoEtario(new MasDe50());
+	    	
+	    	if (experiencia == 1) 
+	    		respuesta.setExperiencia(new Nada());
+	    	else if (experiencia == 2)
+	    		respuesta.setExperiencia(new Media());
+	    	else if (experiencia == 3)
+	    		respuesta.setExperiencia(new Mucha());
+	    	
+	    	if (estudiosCursados == 1) 
+	    		respuesta.setEstudiosCursados(new Primario());
+	    	else if (estudiosCursados == 2)
+	    		respuesta.setEstudiosCursados(new Secundario());
+	    	else if (estudiosCursados == 3)
+	    		respuesta.setEstudiosCursados(new Terciario());
+	    	
+	    	return respuesta;
+    	} else return null;
        /* Locacion locacionEncapsulada = new Locacion();
     	 CargaHoraria cargaHorariaEncapsulada = new CargaHoraria();               //esta es otra forma pero creo que es mas eficiente la de arriba porque crea los objetos solo cuando sabe que los usará
     	 EstudiosCursados estudiosCursadosEncapsulado = new EstudiosCursados();

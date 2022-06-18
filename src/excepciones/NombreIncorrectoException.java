@@ -1,9 +1,9 @@
 package excepciones;
 
 
-public class NombreIncorrectoException extends Exception
-{
-    private String nombreDeUsuario;
+public class NombreIncorrectoException extends Exception{
+    
+	private String nombreDeUsuario;
 
 	public NombreIncorrectoException(String nombreDeUsuario){
 		super();
@@ -13,6 +13,5 @@ public class NombreIncorrectoException extends Exception
 	public String getNombreDeUsuario(){
 		return nombreDeUsuario;
 	}
-    
-    
+       
 }

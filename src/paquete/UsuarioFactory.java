@@ -14,8 +14,8 @@ public class UsuarioFactory
 	private String apellido;
 	private String telefono;
 	private int edad;
-	private boolean fisicaOJuridica; // 1 fisica, 0 juridica
-	private String rubro;
+	private Persona persona;
+	private Rubro rubro;
 	private Scanner scanner = new Scanner(System.in);
 
 	// funcion para crear ticket y formulario desde aki :)
@@ -36,9 +36,9 @@ public class UsuarioFactory
 			i = scanner.nextInt(); 
 			scanner.nextLine();
 			if (i == 1)
-				this.fisicaOJuridica = false;
+				this.persona=new PersonaFisica();
 			else if (i == 2)
-				this.fisicaOJuridica = true;
+				this.persona=new PersonaJuridica();
 			else
 				System.out.println("Opcion incorrecta");
 		}
@@ -51,11 +51,11 @@ public class UsuarioFactory
 			scanner.nextLine();
 
 			if (i == 1)
-				this.rubro = "Salud";
+				this.rubro = new RubroSalud();
 			else if (i == 2)
-				this.rubro = "Comercio local";
+				this.rubro = new RubroComerciolocal();
 			else if (i == 3)
-				this.rubro = "Comercio internacional";
+				this.rubro = new RubroComercioInternacional();
 			else
 				System.out.println("Opcion incorrecta");
 		}
@@ -90,19 +90,23 @@ public class UsuarioFactory
 	 */
 	public Usuario getUsuario(int tipoUsuario, String nombreUsuario, String contrasenia)
 	{
-		if (tipoUsuario == 1)
-		{
-			this.seteaDatosEmpleado();
-			return new Empleado(this.nombre, nombreUsuario, contrasenia, 0, this.apellido, this.telefono, this.edad);
-		} else if (tipoUsuario == 2)
-		{
-			this.seteaDatosEmpleador();
-			return new Empleador(this.nombre, nombreUsuario, contrasenia, 0, this.fisicaOJuridica, this.rubro);
-		} else if (tipoUsuario == 70) {  //codigo de admin 70
-			System.out.println("Ingresa tu nombre de admin");
-			this.nombre = scanner.nextLine();
-			return new AdminAgencia(this.nombre, nombreUsuario, contrasenia);
-		}
+		if (nombreUsuario == null || contrasenia == null) {
 			return null;
+		} else {
+			if (tipoUsuario == 1)
+			{
+				this.seteaDatosEmpleado();
+				return new Empleado(this.nombre, nombreUsuario, contrasenia, 0, this.apellido, this.telefono, this.edad);
+			} else if (tipoUsuario == 2)
+			{
+				this.seteaDatosEmpleador();
+				return new Empleador(this.nombre, nombreUsuario, contrasenia, 0, this.persona, this.rubro);
+			} else if (tipoUsuario == 70) {  //codigo de admin 70
+				System.out.println("Ingresa tu nombre de admin");
+				this.nombre = scanner.nextLine();
+				return new AdminAgencia(this.nombre, nombreUsuario, contrasenia);
+			}
+				return null;
+		}
 	}
 }

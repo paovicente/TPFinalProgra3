@@ -3,10 +3,16 @@ package prueba;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import excepciones.ContraseniaIncorrectaException;
+import excepciones.ListaNoGeneradaException;
+import excepciones.NombreIncorrectoException;
 import paquete.AdminAgencia;
 import paquete.Empleado;
 import paquete.Empleador;
 import paquete.FormularioDeBusqueda;
+import paquete.PersonaFisica;
+import paquete.PersonaJuridica;
+import paquete.RubroSalud;
 import paquete.Sistema;
 import paquete.TicketBuscaEmpleado;
 import paquete.TicketBuscaEmpleo;
@@ -40,7 +46,7 @@ public class Prueba {
 		Sistema sistema = Sistema.getInstancia();
 		
 		
-			System.out.println("Bienvenido al mejor sistema de contrataciones. ¿Qué desea hacer?");
+			System.out.println("Bienvenido al peor sistema de contrataciones. ¿Qué desea hacer?");
 			System.out.println("1-Registarse manualmente");
 			System.out.println("2-Forzar registros");
 			Scanner scanner = new Scanner(System.in);
@@ -60,12 +66,23 @@ public class Prueba {
 				String nomUsuario = scanner.nextLine();
 				System.out.println("Ingresa tu contraseña");
 				String contra = scanner.nextLine();
-				Usuario usuario = sistema.login(nomUsuario, contra);      //login
+				try {
+					Usuario usuario = sistema.login(nomUsuario, contra);      //login
+					Usuario admin = new AdminAgencia("asdb","sdgf","dfg");     //como pongo todo esto fuera del catch??
+					sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) usuario);       //ronda encuentros y elecciones
+					sistema.rondaContrataciones(); 
+				}
+				catch (NombreIncorrectoException e){
+					System.out.println("'" + e.getNombreDeUsuario() + "' es un nombre de usuario incorrecto.");
+				} 
+				catch (ContraseniaIncorrectaException e){  
+					System.out.println("Usuario: " + e.getNombreDeUsuario() + "'" + e.getContrasenia() + "' es una contraseña incorrecta");
+				}
+				catch (ListaNoGeneradaException e) {
+					System.out.println("No se ejecutó correctamente la ronda de encuentros laborales para el usuario: " + e.getNombreDeUsuario());
+				}
 					
-				Usuario admin = new AdminAgencia("asdb","sdgf","dfg");
-				sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) usuario);       //ronda encuentros y elecciones
-				
-				sistema.rondaContrataciones();        //ronda contrataciones
+
 				
 			} else if (i==2) {
 				FormularioDeBusqueda form= new FormularioDeBusqueda();
@@ -124,7 +141,7 @@ public class Prueba {
 				pesos.add((double) 5);
 				pesos.add((double) 5);
 				pesos.add((double) 5);
-				Usuario usuario2 = new Empleador("fravega","macri","def456",0,true,"Salud");
+				Usuario usuario2 = new Empleador("fravega","macri","def456",0,new PersonaFisica(),new RubroSalud());
 				
 				Empleador empleador1 = (Empleador) usuario2;
 				empleador1.addTicket(new TicketBuscaEmpleado(form1,2,pesos));
@@ -139,7 +156,7 @@ public class Prueba {
 				form3.setRangoEtario(new MenosDe40());
 				form3.setRemuneracion(new V1());
 				form3.setTipoPuesto(new Junior());
-				Usuario usuario3 = new Empleador("mcdonalds","messi","xyz123",0,true,"Salud");
+				Usuario usuario3 = new Empleador("mcdonalds","messi","xyz123",0,new PersonaJuridica(),new RubroSalud());
 				
 				Empleador empleador2= (Empleador) usuario3;
 		
@@ -156,7 +173,7 @@ public class Prueba {
 				empleador2.addTicket(new TicketBuscaEmpleado(form3,2,pesos1));
 				sistema.addEmpleador(empleador2);
 				
-				Usuario usuario4= new Empleador("MercadoLibre","aaa","bbb",1,false,"Salud");
+				Usuario usuario4= new Empleador("MercadoLibre","aaa","bbb",1,new PersonaJuridica(),new RubroSalud());
 				FormularioDeBusqueda form4= new FormularioDeBusqueda();
 				form4.setCargahoraria(new CargaCompleta());
 				form4.setEstudiosCursados(new Secundario());
@@ -179,18 +196,34 @@ public class Prueba {
 				empleador3.addTicket(new TicketBuscaEmpleado(form4,2,pesos2));
 				sistema.addEmpleador(empleador3);
 				
-				usuario1 = sistema.login("elpepe", "abc123");
-				usuario2 = sistema.login("macri", "def456");
-				usuario3 = sistema.login("messi", "xyz123");
-				usuario4 = sistema.login("aaa", "bbb"); 
-				usuario5= sistema.login("qqq", "www"); 
+				try {
+					usuario1 = sistema.login("elpepe", "abc123");
+					usuario2 = sistema.login("macri", "def456");
+					usuario3 = sistema.login("messi", "xyz123");
+					usuario4 = sistema.login("aaa", "bbb"); 
+					usuario5= sistema.login("qqq", "www"); 
+				} catch (NombreIncorrectoException e)
+				{
+					System.out.println("'" + e.getNombreDeUsuario() + "' es un nombre de usuario incorrecto.");
+				} catch (ContraseniaIncorrectaException e)
+				{					
+					System.out.println("Usuario: " + e.getNombreDeUsuario() + "'" + e.getContrasenia() + "' es una contraseña incorrecta");
+				}
 				
 				
 				Usuario admin = new AdminAgencia("asdb","sdgf","dfg");
-				sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) empleado2);       //ronda encuentros y elecciones
-				sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) empleador3);
 				
-				
+				try {
+					sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) empleado2);       //ronda encuentros y elecciones			
+				}catch (ListaNoGeneradaException e) {
+					System.out.println("No se ejecutó correctamente la ronda de encuentros laborales para el usuario: " + empleado2.getNombreDeUsuario());
+				}
+					
+				try {
+					sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) empleador3);
+				}catch (ListaNoGeneradaException e) {
+					System.out.println("No se ejecutó correctamente la ronda de encuentros laborales para el usuario: " + empleador3.getNombreDeUsuario());
+				}
 				
 				sistema.rondaContrataciones();        //ronda contrataciones
 		

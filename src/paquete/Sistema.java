@@ -99,7 +99,7 @@ public class Sistema
 	 */
 	private FormularioDeBusqueda creaFormulario()
 	{
-
+		FormularioDeBusqueda form;
 		System.out.println("Elija una locacion de preferencia");
 		System.out.println("1.Home Office      2.Presencial       3.Indistinto");
 		int locacion = scanner.nextInt();
@@ -128,13 +128,21 @@ public class Sistema
 		System.out.println("1.Primario         2.Secundario       3.Terciario");
 		int estudios = scanner.nextInt();
 		scanner.nextLine();
-		return formularioFactory.getFormularioDeBusqueda(locacion, remuneracion, cargaHoraria,
+		
+		form=formularioFactory.getFormularioDeBusqueda(locacion, remuneracion, cargaHoraria,
 				tipoDePuesto, rangoEtario, experiencia, estudios);
+		
+		if (form!=null)
+			return form;
+		else {
+			System.out.println("Ingresaste un valor incorrecto, por favor reingresa.");  
+			return this.creaFormulario(); 
+		}
 	}
 
 	/**
 	 *Registra un usuario.<br> 
-	 * <b>Pre: </b>El nombre de usuario y la contraseña no son vacios. Se ingresa 1 o 0 cuando se propone crear un ticket de búsqueda.<br>
+	 * <b>Pre: </b>Se ingresa 1 o 0 cuando se propone crear un ticket de búsqueda.<br>
 	 * <b>Post: </b>Ingresa al sistema un nuevo usuario con, si es que tiene, su/s ticket/s de búsqueda.<br> 
 	 */
 	public void registrarse()
@@ -338,15 +346,14 @@ public class Sistema
 	 * @param admin: AdminAgencia que realiza la funcion rondaDeEncuentrosLaborales.
 	 * @param usuario: UsuarioInteractivo por el cual se crea la Lista de Asignaciones.
 	 */
-	public void rondaDeEncuentrosLaborales(AdminAgencia admin, UsuarioInteractivo usuario)
+	public void rondaDeEncuentrosLaborales(AdminAgencia admin, UsuarioInteractivo usuario) throws ListaNoGeneradaException
 	{
-		try
-		{
+		try{
 			admin.rondaDeEncuentrosLaborales(usuario);
-		} catch (ListaNoGeneradaException e)
-		{
-			System.out.println(e.getNombreDeUsuario() + " no se pudo realizar correctamente la ronda de Encuentros Laborales. Lista no generada.");
+		}catch (ListaNoGeneradaException e) {	
+			throw new ListaNoGeneradaException(usuario.getNombreDeUsuario());
 		}
+		
 	}
 
 	/**
@@ -357,7 +364,7 @@ public class Sistema
 	 * @param contrasenia: contraseña del usuario con la que se quiere iniciar sesion.
 	 * @return devuelve el usuario con la que se quiere iniciar sesion.
 	 */
-	public Usuario login(String nombredeusuario, String contrasenia)
+	public Usuario login(String nombredeusuario, String contrasenia) throws NombreIncorrectoException, ContraseniaIncorrectaException
 	{
 		Usuario respuesta = null;
 		int i = -1;
@@ -366,14 +373,15 @@ public class Sistema
 			i = this.buscaNombreDeUsuario(nombredeusuario);
 			respuesta = this.buscaContrasenia(i, nombredeusuario, contrasenia);
 			System.out.println("Ingreso exitoso!");
-		} catch (NombreIncorrectoException e)
-		{
-			System.out.println("'" + e.getNombreDeUsuario() + "' es un nombre de usuario incorrecto.");
-		} catch (ContraseniaIncorrectaException e)
-		{
-			System.out.println("Usuario: " + e.getNombreDeUsuario() + " -- Contraseña: "  + e.getContrasenia() + " incorrecta. Intente loguearse nuevamente.");
+		} catch (NombreIncorrectoException e){
+			throw new NombreIncorrectoException(nombredeusuario);
+			//System.out.println("'" + e.getNombreDeUsuario() + "' es un nombre de usuario incorrecto.");
+		} catch (ContraseniaIncorrectaException e){
+			throw new ContraseniaIncorrectaException(nombredeusuario, contrasenia);
+			//String msg = e.getContrasenia();     //pasar esto al main!! throw
+			//System.out.println(msg +" es una contraseña incorrecta");
 		}
-
+		
 		return respuesta;
 	}
 
@@ -421,9 +429,7 @@ public class Sistema
 	 * @return Devuleve la el Usuario buscado.
 	 * @throws ContraseniaIncorrectaException: Se lanza cuando no se encuentra la contraseña.
 	 */
-	private Usuario buscaContrasenia(int i, String nombreDeUsuario, String contrasenia)
-			throws ContraseniaIncorrectaException
-	{
+	private Usuario buscaContrasenia(int i, String nombreDeUsuario, String contrasenia) throws ContraseniaIncorrectaException {
 		Usuario respuesta = null; // creo q se podria quitar esta variable
 		if (i != -1)
 			if (i < this.empleadores.size() && this.empleadores.size() > 0

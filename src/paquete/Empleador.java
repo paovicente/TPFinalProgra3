@@ -34,20 +34,22 @@ import subclasesDeAtributosDeFormulario.V3;
  */
 public class Empleador extends UsuarioInteractivo {
 
-	private boolean juridica;
-	private String rubro;
+	//private boolean juridica;
+	//private String rubro;
 	private ArrayList<TicketBuscaEmpleado> tickets = new ArrayList<TicketBuscaEmpleado>();
+	private Rubro rubro;
+	private Persona persona;
 
     /**
      * @aggregation composite
      */
     private ListaDelEmpleador elecciones;
 
-	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, boolean juridica,
-			String rubro) {
+	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, Persona persona,Rubro rubro) {
 		super(nombre, nombreDeUsuario, contrasenia, puntaje);
-		this.juridica = juridica;
-		this.rubro = rubro;
+		//this.juridica = juridica;
+		this.persona=persona;
+		this.rubro=rubro;
 	}
 
 	@Override
@@ -70,11 +72,11 @@ public class Empleador extends UsuarioInteractivo {
 	}
 
 	public boolean isJuridica() {
-		return juridica;
+		return persona.juridica();
 	}
 
 	public String getRubro() {
-		return rubro;
+		return rubro.toString();
 	}
 
 	public ArrayList<TicketBuscaEmpleado> getTickets() {
@@ -108,7 +110,7 @@ public class Empleador extends UsuarioInteractivo {
 
 	@Override
 	public String toString() {
-		return super.toString() + "Empleador [juridica=" + juridica + ", rubro=" + rubro + ", tickets=" + tickets + "]";
+		return super.toString() + "Empleador [juridica=" + this.isJuridica() + ", rubro=" + rubro + ", tickets=" + tickets + "]";
 	}
 
 	/**
@@ -470,27 +472,28 @@ public class Empleador extends UsuarioInteractivo {
 	 * <b>Post: </b> Se obtendrá la comisión que cobró el Empleador luego de la contratación <br>
 	 *@param formulario: formulario que se tendrá en cuenta para realizar los cálculos <br>
 	 */
-	public void calcularComision(FormularioDeBusqueda formulario)
-    {
+	public void calcularComision(FormularioDeBusqueda formulario){
         double aux = 0;
         super.calcularComision(formulario);
-        if (!this.juridica)
-        {
+        aux = this.rubro.persona(this.persona);    //double dispatch agregado aca!! 
+        
+        //este de abajo era el codigo anterior, estaba asi porq no teniamos creadas las clases de los tipos de persona ni los rubros: tuve q crearlas xd
+       
+       /* if (!this.juridica){
             if (this.rubro.equalsIgnoreCase("Salud"))
                 aux = 0.6;
             else if (this.rubro.equalsIgnoreCase("Comercio local"))
                 aux = 0.7;
             else if (this.rubro.equalsIgnoreCase("Comercio internacional"))
                 aux = 0.8;
-        } else
-        {
+        } else {
             if (this.rubro.equalsIgnoreCase("Salud"))
                 aux = 0.8;
             else if (this.rubro.equalsIgnoreCase("Comercio local"))
                 aux = 0.9;
             else if (this.rubro.equalsIgnoreCase("Comercio internacional"))
                 aux = 1.;
-        }
+        } */
 
         System.out.println(aux * formulario.getRemuneracion().getValor() - this.getPuntaje() * 0.01);
         
