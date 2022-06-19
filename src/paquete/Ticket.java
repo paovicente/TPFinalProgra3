@@ -2,6 +2,9 @@ package paquete;
 
 import java.time.LocalDate;
 
+import state.ActivoState;
+import state.IState;
+
 public abstract class Ticket
 {
     /**
@@ -9,7 +12,7 @@ public abstract class Ticket
      */
     private FormularioDeBusqueda formulario;
 	private LocalDate fecha;
-	private String estado;
+	private IState estado;
 	private Lista lista;
 
 	public Ticket(FormularioDeBusqueda formulario)
@@ -17,7 +20,7 @@ public abstract class Ticket
 		super();
 		this.formulario = formulario;
 		this.fecha = LocalDate.now();	//le pone la fecha actual del sistema
-		this.estado = "activo";
+		this.estado = new ActivoState(this);
 	}
 
 	public FormularioDeBusqueda getFormulario()
@@ -30,12 +33,12 @@ public abstract class Ticket
 		this.formulario = formulario;
 	}
 
-	public String getEstado()
+	public IState getEstado()
 	{
 		return estado;
 	}
 
-	public void setEstado(String estado)
+	public void setEstado(IState estado)
 	{
 		this.estado = estado;
 	}

@@ -7,6 +7,7 @@ import java.util.Scanner;
 import excepciones.ContraseniaIncorrectaException;
 import excepciones.ListaNoGeneradaException;
 import excepciones.NombreIncorrectoException;
+import state.FinalizadoState;
 
 /**
  * @author Usuario
@@ -489,7 +490,7 @@ public class Sistema
 								&& empleadoAux.getElecciones().getEmpleadores().get(k).equals(aux)
 								&& estaEmpleado(aux, empleadoAux))
 						{
-							empleadoAux.getTicket().setEstado("Finalizado");
+							empleadoAux.getTicket().setEstado(new FinalizadoState(empleadoAux.getTicket()));
 							empleadoAux.setPuntaje(empleadoAux.getPuntaje() + 10);
 							aux.getTickets().get(i).setCantEmpObt(aux.getTickets().get(i).getCantEmpObt() + 1);
 							bandera = true;
@@ -503,7 +504,7 @@ public class Sistema
 				}
 				if (aux.getTickets().get(i).getCantEmpObt() == aux.getTickets().get(i).getCantEmpSolic())
 				{
-					aux.getTickets().get(i).setEstado("Finalizado");
+					aux.getTickets().get(i).setEstado(new FinalizadoState(aux.getTickets().get(i)));
 					aux.setPuntaje(aux.getPuntaje() + 50);
 				}
 			}

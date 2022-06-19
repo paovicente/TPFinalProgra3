@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 import excepciones.ListaNoGeneradaException;
+import state.CanceladoState;
+import state.SuspendidoState;
 import subclasesDeAtributosDeFormulario.CargaCompleta;
 import subclasesDeAtributosDeFormulario.CargaExtendida;
 import subclasesDeAtributosDeFormulario.CargaMedia;
@@ -28,66 +30,78 @@ import subclasesDeAtributosDeFormulario.V2;
 import subclasesDeAtributosDeFormulario.V3;
 
 /**
- * @author Usuario
- *<br>
- *Clase que representa a un Empleador, hereda estados y comportamientos de la clase UsuarioInteractivo
+ * @author Usuario <br>
+ *         Clase que representa a un Empleador, hereda estados y comportamientos
+ *         de la clase UsuarioInteractivo
  */
-public class Empleador extends UsuarioInteractivo {
+public class Empleador extends UsuarioInteractivo
+{
 
-	//private boolean juridica;
-	//private String rubro;
+	// private boolean juridica;
+	// private String rubro;
 	private ArrayList<TicketBuscaEmpleado> tickets = new ArrayList<TicketBuscaEmpleado>();
 	private Rubro rubro;
 	private Persona persona;
 
-    /**
-     * @aggregation composite
-     */
-    private ListaDelEmpleador elecciones;
+	/**
+	 * @aggregation composite
+	 */
+	private ListaDelEmpleador elecciones;
 
-	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, Persona persona,Rubro rubro) {
+	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, Persona persona,
+			Rubro rubro)
+	{
 		super(nombre, nombreDeUsuario, contrasenia, puntaje);
-		//this.juridica = juridica;
-		this.persona=persona;
-		this.rubro=rubro;
+		// this.juridica = juridica;
+		this.persona = persona;
+		this.rubro = rubro;
 	}
 
 	@Override
-	public void muestraLista() { // mostrará una lista para cada ticket
+	public void muestraLista()
+	{ // mostrará una lista para cada ticket
 		int i = 1;
 		Iterator<TicketBuscaEmpleado> iterador = tickets.iterator();
-		while (iterador.hasNext()) {
+		while (iterador.hasNext())
+		{
 			System.out.println("Ticket numero " + i + ": ");
 			iterador.next().getLista().mostrar();
 			i++;
 		}
 	}
 
-	public ListaDelEmpleador getElecciones() {
+	public ListaDelEmpleador getElecciones()
+	{
 		return elecciones;
 	}
 
-	public void addTicket(TicketBuscaEmpleado ticket) {
+	public void addTicket(TicketBuscaEmpleado ticket)
+	{
 		this.tickets.add(ticket);
 	}
 
-	public boolean isJuridica() {
+	public boolean isJuridica()
+	{
 		return persona.juridica();
 	}
 
-	public String getRubro() {
+	public String getRubro()
+	{
 		return rubro.toString();
 	}
 
-	public ArrayList<TicketBuscaEmpleado> getTickets() {
+	public ArrayList<TicketBuscaEmpleado> getTickets()
+	{
 		return tickets;
 	}
 
 	/**
 	 * Muestra los tickets del Empleador
 	 */
-	public void muestraTickets() {
-		for (int i = 0; i < this.tickets.size(); i++) {
+	public void muestraTickets()
+	{
+		for (int i = 0; i < this.tickets.size(); i++)
+		{
 			System.out.println(i + ".");
 			System.out.println("Locacion: " + this.getTickets().get(i).getFormulario().getLocacion().diceTipo()
 					+ ".  Peso: " + this.getTickets().get(i).getPesos().get(0));
@@ -109,18 +123,27 @@ public class Empleador extends UsuarioInteractivo {
 	}
 
 	@Override
-	public String toString() {
-		return super.toString() + "Empleador [juridica=" + this.isJuridica() + ", rubro=" + rubro + ", tickets=" + tickets + "]";
+	public String toString()
+	{
+		return super.toString() + "Empleador [juridica=" + this.isJuridica() + ", rubro=" + rubro + ", tickets="
+				+ tickets + "]";
 	}
 
 	/**
-	 * Agrega a la lista de elecciones del empleador, los empleados correspondientes (indicados por el parámetro)<br>
+	 * Agrega a la lista de elecciones del empleador, los empleados correspondientes
+	 * (indicados por el parámetro)<br>
 	 * <b>Pre: </b> El arrayList debe tener al menos un elemento <br>
-	 * <b>Post: </b> Se insertaron los empleados seleccionados por el empleador a la lista de elecciones del empleador en cuestión <br>
-	 * @param indicesElecciones: parámetro que contiene los indices de los empleados que serán agregados a la lista de elecciones del empleador<br>
-	 * @param k: parámetro que representa el indice del ticket para el cual se hace la rondaElecciones<br>
+	 * <b>Post: </b> Se insertaron los empleados seleccionados por el empleador a la
+	 * lista de elecciones del empleador en cuestión <br>
+	 * 
+	 * @param indicesElecciones: parámetro que contiene los indices de los empleados
+	 *                           que serán agregados a la lista de elecciones del
+	 *                           empleador<br>
+	 * @param k:                 parámetro que representa el indice del ticket para
+	 *                           el cual se hace la rondaElecciones<br>
 	 */
-	public void rondaElecciones(ArrayList<Integer> indicesElecciones, int k) {
+	public void rondaElecciones(ArrayList<Integer> indicesElecciones, int k)
+	{
 
 		Empleado empleado;
 		double puntaje;
@@ -131,8 +154,10 @@ public class Empleador extends UsuarioInteractivo {
 		listaAux = ticketAux.getLista();
 		this.elecciones = new ListaDelEmpleador();
 
-		for (Integer indice : indicesElecciones) {
-			if (indice < listaAux.getEmpleados().size()) { // acá me fijo que sea un indice válido
+		for (Integer indice : indicesElecciones)
+		{
+			if (indice < listaAux.getEmpleados().size())
+			{ // acá me fijo que sea un indice válido
 				empleado = listaAux.getEmpleados().get(indice);
 				puntaje = listaAux.getPuntajes().get(indice);
 
@@ -143,31 +168,32 @@ public class Empleador extends UsuarioInteractivo {
 	}
 
 	/**
-	 *Permite modificar los estados de un ticket, dar de alta, de baja, o modificar un ticket.<br>
-	 *<b>Pre: </b> ---- <br>
-	 *<b>Post: </b> El ticket (el empleador eligió el número de ticket) se modificará de acuerdo a la operación que indique el parámetro <br>
-	 *@param c: caracter que indica la operación que se realizará en el método<br>
+	 * Permite modificar los estados de un ticket, dar de alta, de baja, o modificar
+	 * un ticket.<br>
+	 * <b>Pre: </b> ---- <br>
+	 * <b>Post: </b> El ticket (el empleador eligió el número de ticket) se
+	 * modificará de acuerdo a la operación que indique el parámetro <br>
+	 * 
+	 * @param c: caracter que indica la operación que se realizará en el método<br>
 	 */
 	@Override
-	public void gestionarTicket(char c) { // ya pido la posicion del ticket previo a invocar el metodo
+	public void gestionarTicket(char c)
+	{ // ya pido la posicion del ticket previo a invocar el metodo
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Ingresame el numero de ticket que deseas modificar.");
 		for (int w = 0; w < this.tickets.size(); w++)
 			System.out.println("Elemento " + w + ":" + this.tickets.get(w).toString());
 		int i = scanner.nextInt();
 
-		switch (c) {
+		switch (c)
+		{
 		case 's': // suspender
-			this.tickets.get(i).setEstado("Suspendido");
+			this.tickets.get(i).setEstado(new SuspendidoState(this.tickets.get(i)));
 			break;
 		case 'x': // activar
-			if (!(this.tickets.get(i).getEstado().equals("Cancelado")))
-				this.tickets.get(i).setEstado("Activo");
-			else
-				System.out.println("Ticket cancelado. Imposible activar nuevamente");
-			break;
+			this.tickets.get(i).getEstado().gestionarTicket();
 		case 'k':
-			this.tickets.get(i).setEstado("Cancelado");
+			this.tickets.get(i).setEstado(new CanceladoState(this.tickets.get(i)));
 			break;
 		case 'a': // alta de un nuevo ticket. no verifico null porque puedo tener muchos tickets
 					// aquí
@@ -242,12 +268,14 @@ public class Empleador extends UsuarioInteractivo {
 			String aux = scanner.nextLine();
 			int k = Integer.parseInt(aux);
 			int eleccion;
-			switch (k) {
+			switch (k)
+			{
 			case 1:
 				System.out.println("Elija una carga horaria");
 				System.out.println("1.Media            2.Completa         3.Extendida");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setCargahoraria(new CargaMedia());
 					break;
@@ -265,7 +293,8 @@ public class Empleador extends UsuarioInteractivo {
 				System.out.println("Elija estudios");
 				System.out.println("1.Primario         2.Secundario       3.Terciario");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setEstudiosCursados(new Primario());
 					break;
@@ -283,7 +312,8 @@ public class Empleador extends UsuarioInteractivo {
 				System.out.println("Elija una experiencia");
 				System.out.println("1.Nada             2.Media            3.Mucha");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setExperiencia(new Nada());
 					break;
@@ -301,7 +331,8 @@ public class Empleador extends UsuarioInteractivo {
 				System.out.println("Elija una locacion de preferencia");
 				System.out.println("1.Home Office      2.Presencial       3.Indistinto");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setLocacion(new HomeOffice());
 					break;
@@ -319,7 +350,8 @@ public class Empleador extends UsuarioInteractivo {
 				System.out.println("Elija un rango etario");
 				System.out.println("1.Menos de 40      2.Entre 40 y 50    3.Más de 50");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setRangoEtario(new MenosDe40());
 					break;
@@ -337,7 +369,8 @@ public class Empleador extends UsuarioInteractivo {
 				System.out.println("Elija una remuneracion");
 				System.out.println("1.V1               2.V2               3.V3");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setRemuneracion(new V1());
 					break;
@@ -355,7 +388,8 @@ public class Empleador extends UsuarioInteractivo {
 				System.out.println("Elija un tipo de puesto");
 				System.out.println("1.Senior           2.Junior           3.Management");
 				eleccion = scanner.nextInt();
-				switch (eleccion) {
+				switch (eleccion)
+				{
 				case 1:
 					this.tickets.get(i).getFormulario().setTipoPuesto(new Junior());
 					break;
@@ -377,72 +411,85 @@ public class Empleador extends UsuarioInteractivo {
 	}
 
 	/**
-	 *Genera la lista de asignación del empleador (ListaDelEmpleador) <br>
-	 *<b>Pre: </b> El Empleador debe tener al menos un ticket en su ArrayList de tickets.<br>
-	 *El ticket elegido no debe ser null. <br>
-	 *<b>Post: </b> Se genera la lista de asignación. Si no se genera, ya sea porque ningún empleado
-	 *tenía ticket o porque el ticket de ningún empleado tenía estado activo, se propaga una excepción <br>
+	 * Genera la lista de asignación del empleador (ListaDelEmpleador) <br>
+	 * <b>Pre: </b> El Empleador debe tener al menos un ticket en su ArrayList de
+	 * tickets.<br>
+	 * El ticket elegido no debe ser null. <br>
+	 * <b>Post: </b> Se genera la lista de asignación. Si no se genera, ya sea
+	 * porque ningún empleado tenía ticket o porque el ticket de ningún empleado
+	 * tenía estado activo, se propaga una excepción <br>
 	 */
 	@Override
-	public void rondaEncuentros() throws ListaNoGeneradaException {
-	
+	public void rondaEncuentros() throws ListaNoGeneradaException
+	{
+
 		Scanner scanner = new Scanner(System.in);
-	
-		Sistema sis= Sistema.getInstancia();
+
+		Sistema sis = Sistema.getInstancia();
 		ArrayList<UsuarioInteractivo> empleados = new ArrayList<UsuarioInteractivo>();
 		empleados = sis.getEmpleados();
 
 		System.out.println("Primero debe elegir un ticket");
 		this.muestraTickets();
-		System.out.println("Ingrese el numero de ticket: "); 
-		
+		System.out.println("Ingrese el numero de ticket: ");
+
 		int num = scanner.nextInt();
-		if (num >= 0 && num < this.getTickets().size()) {
+		if (num >= 0 && num < this.getTickets().size())
+		{
 			this.getTickets().get(num).setLista(new ListaDelEmpleador());
 			double aux = 0;
 			int i = 0;
 			while (i < empleados.size()) // para todos los empleados disponibles
 			{
-				if (((Empleado) empleados.get(i)).getTicket().getEstado().equals("activo")
-						&& this.getTickets().get(num).getEstado().equals("activo")) {
-					aux = calculaAspectos((Empleado) empleados.get(i), this.getTickets().get(num)); // cal
-																												// culo
-																												// puntaje
-					this.getTickets().get(num).getLista().insertar((Empleado) empleados.get(i), aux);
-				}
-
+				if (((Empleado) empleados.get(i)).getTicket().getEstado().equals("Activo"))
+					this.getTickets().get(num).getEstado().rondaEncuentros(this, empleados.get(i),this.getTickets().get(num));
 				i++;
 			}
-			
-			if (this.getTickets().get(num).getLista().getEmpleados().size()!=0) {
-				this.getTickets().get(num).getLista().ordenar();
-				
-				int k = this.getTickets().get(num).getLista().getEmpleados().size();            
-				if (k != 0) { 
-				  Empleado emple = this.getTickets().get(num).getLista().getEmpleados().get(k-1);  //si está ultimo
-				  emple.setPuntaje(emple.getPuntaje() - 5); 
 
-				  Empleado emple2 = this.getTickets().get(num).getLista().getEmpleados().get(0); //si está primero
-				  emple2.setPuntaje(emple2.getPuntaje() + 5);
+			if (this.getTickets().get(num).getLista().getEmpleados().size() != 0)
+			{
+				this.getTickets().get(num).getLista().ordenar();
+
+				int k = this.getTickets().get(num).getLista().getEmpleados().size();
+				if (k != 0)
+				{
+					Empleado emple = this.getTickets().get(num).getLista().getEmpleados().get(k - 1); // si está ultimo
+					emple.setPuntaje(emple.getPuntaje() - 5);
+
+					Empleado emple2 = this.getTickets().get(num).getLista().getEmpleados().get(0); // si está primero
+					emple2.setPuntaje(emple2.getPuntaje() + 5);
 				}
-				
+
 				System.out.println("Ejecutando la ronda de elecciones de empleadores... ");
 				this.rondaElecciones(this, num);
-				
+
 			} else
 				throw new ListaNoGeneradaException(this.getNombreDeUsuario());
 		}
 	}
-	
+
+	public void sigue(UsuarioInteractivo empleado, Ticket ticket)
+	{
+		double aux = calculaAspectos((Empleado) empleado, (TicketBuscaEmpleado) ticket);
+		ListaDelEmpleador lista = (ListaDelEmpleador) ticket.getLista();
+		lista.insertar((Empleado) empleado, aux);
+	}
+
 	/**
 	 * Determina las elecciones de un empleador.<br>
-	 * <b>Pre: </b> El empleador no debe ser null. La lista de tickets del empleado no debe ser null.
-	 * La cantidad de elecciones que ingresa el usuario debe ser mayor a cero<br>
-	 * <b>Post: </b> Se genera un ArrayList con los indices de las elecciones que hizo el empleador <br>
-	 * @param empleador: parámetro que indica el empleador para el cual se determinarán sus elecciones.
-	 * @param k: parámetro que representa el índice del ticket elegido para la rondaElecciones
+	 * <b>Pre: </b> El empleador no debe ser null. La lista de tickets del empleado
+	 * no debe ser null. La cantidad de elecciones que ingresa el usuario debe ser
+	 * mayor a cero<br>
+	 * <b>Post: </b> Se genera un ArrayList con los indices de las elecciones que
+	 * hizo el empleador <br>
+	 * 
+	 * @param empleador: parámetro que indica el empleador para el cual se
+	 *                   determinarán sus elecciones.
+	 * @param k:         parámetro que representa el índice del ticket elegido para
+	 *                   la rondaElecciones
 	 */
-	public void rondaElecciones(Empleador empleador, int k) { // k = indice del ticket elegido
+	public void rondaElecciones(Empleador empleador, int k)
+	{ // k = indice del ticket elegido
 		Scanner scanner = new Scanner(System.in);
 		int cantElecciones;
 		ArrayList<Integer> indicesElecciones = new ArrayList<Integer>();
@@ -453,50 +500,50 @@ public class Empleador extends UsuarioInteractivo {
 
 		System.out.println("Cuantas elecciones quiere hacer?");
 
-		cantElecciones = scanner.nextInt();	//precondicion cantElecciones > 0
-		for (int i = 0; i < cantElecciones; i++) {
+		cantElecciones = scanner.nextInt(); // precondicion cantElecciones > 0
+		for (int i = 0; i < cantElecciones; i++)
+		{
 			System.out.println("Ingrese numero de elemento que quiere elegir");
 			aux = scanner.nextInt(); // acá guardo el indice de la eleccion
 			if (aux >= 0)
 				indicesElecciones.add(aux);
-			else {
+			else
+			{
 				System.out.println("Indice incorrecto");
 			}
 		}
-		empleador.rondaElecciones(indicesElecciones,k); // metodo de clase empleado
+		empleador.rondaElecciones(indicesElecciones, k); // metodo de clase empleado
 	}
-	
+
 	/**
 	 * Calcula la comisión en el momento de la contratación. <br>
 	 * <b>Pre: </b> El parámetro formulario no debe ser null <br>
-	 * <b>Post: </b> Se obtendrá la comisión que cobró el Empleador luego de la contratación <br>
-	 *@param formulario: formulario que se tendrá en cuenta para realizar los cálculos <br>
+	 * <b>Post: </b> Se obtendrá la comisión que cobró el Empleador luego de la
+	 * contratación <br>
+	 * 
+	 * @param formulario: formulario que se tendrá en cuenta para realizar los
+	 *                    cálculos <br>
 	 */
-	public void calcularComision(FormularioDeBusqueda formulario){
-        double aux = 0;
-        super.calcularComision(formulario);
-        aux = this.rubro.persona(this.persona);    //double dispatch agregado aca!! 
-        
-        //este de abajo era el codigo anterior, estaba asi porq no teniamos creadas las clases de los tipos de persona ni los rubros: tuve q crearlas xd
-       
-       /* if (!this.juridica){
-            if (this.rubro.equalsIgnoreCase("Salud"))
-                aux = 0.6;
-            else if (this.rubro.equalsIgnoreCase("Comercio local"))
-                aux = 0.7;
-            else if (this.rubro.equalsIgnoreCase("Comercio internacional"))
-                aux = 0.8;
-        } else {
-            if (this.rubro.equalsIgnoreCase("Salud"))
-                aux = 0.8;
-            else if (this.rubro.equalsIgnoreCase("Comercio local"))
-                aux = 0.9;
-            else if (this.rubro.equalsIgnoreCase("Comercio internacional"))
-                aux = 1.;
-        } */
+	public void calcularComision(FormularioDeBusqueda formulario)
+	{
+		double aux = 0;
+		super.calcularComision(formulario);
+		aux = this.rubro.persona(this.persona); // double dispatch agregado aca!!
 
-        System.out.println(aux * formulario.getRemuneracion().getValor() - this.getPuntaje() * 0.01);
-        
-    }
+		// este de abajo era el codigo anterior, estaba asi porq no teniamos creadas las
+		// clases de los tipos de persona ni los rubros: tuve q crearlas xd
+
+		/*
+		 * if (!this.juridica){ if (this.rubro.equalsIgnoreCase("Salud")) aux = 0.6;
+		 * else if (this.rubro.equalsIgnoreCase("Comercio local")) aux = 0.7; else if
+		 * (this.rubro.equalsIgnoreCase("Comercio internacional")) aux = 0.8; } else {
+		 * if (this.rubro.equalsIgnoreCase("Salud")) aux = 0.8; else if
+		 * (this.rubro.equalsIgnoreCase("Comercio local")) aux = 0.9; else if
+		 * (this.rubro.equalsIgnoreCase("Comercio internacional")) aux = 1.; }
+		 */
+
+		System.out.println(aux * formulario.getRemuneracion().getValor() - this.getPuntaje() * 0.01);
+
+	}
 
 }
