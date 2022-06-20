@@ -1,6 +1,8 @@
 package paquete;
 
-public class TicketBuscaEmpleo extends Ticket
+import java.io.Serializable;
+
+public class TicketBuscaEmpleo extends Ticket implements Serializable
 {
 	private boolean exito;
 

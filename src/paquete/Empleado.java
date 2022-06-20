@@ -1,11 +1,10 @@
 package paquete;
 
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 import excepciones.ListaNoGeneradaException;
-import state.CanceladoState;
-import state.SuspendidoState;
 import subclasesDeAtributosDeFormulario.CargaCompleta;
 import subclasesDeAtributosDeFormulario.CargaExtendida;
 import subclasesDeAtributosDeFormulario.CargaMedia;
@@ -35,15 +34,16 @@ import subclasesDeAtributosDeFormulario.V3;
  *
  */
 
-public class Empleado extends UsuarioInteractivo
+public class Empleado extends UsuarioInteractivo implements Runnable
 {
 
 	private String apellido;
 	private String telefono;
 	private int edad;
 	private TicketBuscaEmpleo ticket = null;
-	private Scanner scanner = new Scanner(System.in);
+	private transient Scanner scanner = new Scanner(System.in);   //transient para que no persista
 	private ListaDelEmpleado elecciones; // para la ronda de elecciones, tengo que guardar el resultado
+	private TicketSimplificado ticketSimplificado;
 
 	public Empleado(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, String apellido,
 			String telefono, int edad)
@@ -137,12 +137,12 @@ public class Empleado extends UsuarioInteractivo
 		switch (c)
 		{
 		case 's':
-			this.getTicket().setEstado(new SuspendidoState(this.getTicket()));
+			this.getTicket().suspende();
 			break;
 		case 'x':
-			this.getTicket().getEstado().gestionarTicket();
+			this.getTicket().gestionarTicket();
 		case 'k':
-			this.getTicket().setEstado(new CanceladoState(this.getTicket()));
+			this.getTicket().cancela();
 			this.setPuntaje(this.getPuntaje() - 1);
 			break;
 		case 'a': // alta
@@ -384,8 +384,9 @@ public class Empleado extends UsuarioInteractivo
 			j = 0;
 			while (j < ((Empleador) empleadores.get(i)).getTickets().size()) // todos los ticket de cada empleador
 			{
-				if (((Empleador) empleadores.get(i)).getTickets().get(j).getEstado().diceEstado().equals("Activo"))
-				    this.getTicket().getEstado().rondaEncuentros(this,empleadores.get(i),((Empleador) empleadores.get(i)).getTickets().get(j));
+				if (((Empleador) empleadores.get(i)).getTickets().get(j).diceEstado().equals("Activo"))
+					this.getTicket().rondaEncuentros(this, empleadores.get(i),
+							((Empleador) empleadores.get(i)).getTickets().get(j));
 				j++;
 			}
 			i++;
@@ -418,14 +419,14 @@ public class Empleado extends UsuarioInteractivo
 	 * @param empleado: parámetro que indica el empleado para el cual se
 	 *                  determinarán sus elecciones.
 	 */
-	
+
 	public void sigue(UsuarioInteractivo empleador, Ticket ticket)
 	{
 		System.out.println("Recorriendo tickets de empleador..");
 		double aux = calculaAspectos(this, (TicketBuscaEmpleado) ticket); // asigno puntaje
 		this.getTicket().getLista().insertar((Empleador) empleador, (TicketBuscaEmpleado) ticket, aux);
 	}
-	
+
 	public void rondaElecciones(Empleado empleado)
 	{
 		Scanner scanner = new Scanner(System.in);
@@ -451,5 +452,43 @@ public class Empleado extends UsuarioInteractivo
 		}
 		empleado.rondaElecciones(indicesElecciones); // metodo de clase empleado
 	}
+	
+	@Override
+	public void run()
+	{
+		int i = 0;
+		while (i < 10 && this.ticketSimplificado == null)
+		{
+			TicketSimplificado ticket;
+			String tipoDeTrabajo = null;
+			Random r = new Random();
+			int num = r.nextInt(3);
+			switch (num)
+			{
+			case 0:
+				tipoDeTrabajo = "RubroComercioInternacional";
+			case 1:
+				tipoDeTrabajo = "RubroComerciolocal";
+			case 2:
+				tipoDeTrabajo = "RubroSalud";
+			}
+			ticket = BolsaDeTrabajo.getInstancia().buscaEmpleo(this.getNombre(), tipoDeTrabajo);
+			if (ticket != null)
+			{
+				Util.espera(3000);
+				String locEmpl = this.getTicket().getFormulario().getLocacion().diceTipo();
+				if (locEmpl.equals(ticket.getLocacion()) || locEmpl.equals("Indistinto")
+						|| ticket.getLocacion().equals("Indistinto"))
+				{
+					this.ticketSimplificado = ticket;
+					BolsaDeTrabajo.getInstancia().noDevuelveTicket(this.getNombre(), ticket);
+				} else
+					BolsaDeTrabajo.getInstancia().devuelveTicket(this.getNombre(), ticket);
+
+			}
+			i++;
+		}
+	}
+
 
 }

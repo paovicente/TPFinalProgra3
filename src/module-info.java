@@ -1,2 +1,2 @@
-module TPG_1 {
+module paquete {
 }

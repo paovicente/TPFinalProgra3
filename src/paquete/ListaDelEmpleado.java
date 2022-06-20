@@ -1,5 +1,6 @@
 package paquete;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -9,7 +10,7 @@ import java.util.Iterator;
 puntaje que el empleado obtuvo como calificación.
  *
  */
-public class ListaDelEmpleado extends Lista
+public class ListaDelEmpleado extends Lista implements Serializable
 {
 
     /**

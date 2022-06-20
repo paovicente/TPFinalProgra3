@@ -1,6 +1,8 @@
 package paquete;
 
-public abstract class Persona {
+import java.io.Serializable;
+
+public abstract class Persona implements Serializable{
 	
 	public abstract double porcentajeSalud();
 	public abstract double porcentajeComercioLocal();

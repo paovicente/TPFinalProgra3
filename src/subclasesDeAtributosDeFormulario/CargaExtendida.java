@@ -1,5 +1,7 @@
 package subclasesDeAtributosDeFormulario;
 
+import java.io.Serializable;
+
 import formularioclases.CargaHoraria;
 
 /**

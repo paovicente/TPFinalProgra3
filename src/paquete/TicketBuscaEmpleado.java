@@ -1,8 +1,9 @@
 package paquete;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TicketBuscaEmpleado extends Ticket
+public class TicketBuscaEmpleado extends Ticket implements Serializable
 {
 	private ArrayList<Double> pesos = new ArrayList<Double>();
 	private int cantEmpSolic;

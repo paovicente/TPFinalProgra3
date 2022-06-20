@@ -1,5 +1,6 @@
 package paquete;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -7,6 +8,9 @@ import java.util.Scanner;
 import excepciones.ContraseniaIncorrectaException;
 import excepciones.ListaNoGeneradaException;
 import excepciones.NombreIncorrectoException;
+import persistencia.IPersistencia;
+import persistencia.Objeto;
+import persistencia.PersistenciaBIN;
 import state.FinalizadoState;
 
 /**
@@ -32,6 +36,8 @@ public class Sistema
     /**
      * @aggregation composite
      */
+    
+    private ArrayList<Contrataciones> contrataciones = new ArrayList<Contrataciones>();
     private ArrayList<Usuario> admins = new ArrayList<Usuario>();
 	private UsuarioFactory usuarioFactory = new UsuarioFactory();
 	private FormularioFactory formularioFactory = new FormularioFactory();
@@ -46,6 +52,10 @@ public class Sistema
 	public void addAdmin(AdminAgencia admin)
 	{
 		this.admins.add(admin);
+	}
+	
+	public void addContratacion(Contrataciones contrataciones) {
+		this.contrataciones.add(contrataciones);
 	}
 
 	public ArrayList<UsuarioInteractivo> getEmpleados()
@@ -490,13 +500,14 @@ public class Sistema
 								&& empleadoAux.getElecciones().getEmpleadores().get(k).equals(aux)
 								&& estaEmpleado(aux, empleadoAux))
 						{
-							empleadoAux.getTicket().setEstado(new FinalizadoState(empleadoAux.getTicket()));
+							empleadoAux.getTicket().finaliza();
 							empleadoAux.setPuntaje(empleadoAux.getPuntaje() + 10);
 							aux.getTickets().get(i).setCantEmpObt(aux.getTickets().get(i).getCantEmpObt() + 1);
 							bandera = true;
 							System.out.println(aux.getNombre() + " ha contratado a " + empleadoAux.getNombre());
 							this.calcularComision(empleadoAux, empleadoAux.getTicket().getFormulario());
 							this.calcularComision(aux, aux.getTickets().get(i).getFormulario());
+							this.addContratacion(new Contrataciones(empleadoAux,aux));
 						}
 						k++;
 					}
@@ -504,12 +515,37 @@ public class Sistema
 				}
 				if (aux.getTickets().get(i).getCantEmpObt() == aux.getTickets().get(i).getCantEmpSolic())
 				{
-					aux.getTickets().get(i).setEstado(new FinalizadoState(aux.getTickets().get(i)));
+					aux.getTickets().get(i).finaliza();
 					aux.setPuntaje(aux.getPuntaje() + 50);
 				}
 			}
 		}
 	}
+	
+	public void escribirPersistencia() throws IOException{  //catchear excepcion en el main
+		Objeto objeto = new Objeto(this.empleados,this.empleadores,this.contrataciones);
+		IPersistencia persistencia = new PersistenciaBIN();
+		persistencia.abrirOutput("Datos.bin");
+		System.out.println("Creando archivo de escritura");
+		persistencia.escribir(objeto);
+		System.out.println("Datos grabados exitosamente");
+		persistencia.cerrarOutput();
+		System.out.println("Archivo cerrado");
+	}
+	
+	public void leerPersistencia() throws ClassNotFoundException, IOException, Exception {
+		IPersistencia persistencia = new PersistenciaBIN();
+		persistencia.abrirInput("Datos.bin");
+		System.out.println("Archivo abierto");
+		Objeto objeto = (Objeto) persistencia.leer();
+		System.out.println("Datos recuperados");
+		persistencia.cerrarInput();
+		System.out.println("Archivo cerrado");
+		this.empleados = objeto.getEmpleados();
+		this.empleadores = objeto.getEmpleadores();
+		this.contrataciones = objeto.getContrataciones(); 
+		
+	} 
 
 	/**
 	 * Busca el empleado indicado por el parámetro empleado, en la lista de elecciones del empleador
@@ -528,4 +564,6 @@ public class Sistema
 		return (empleador.getElecciones() != null && k < empleador.getElecciones().getEmpleados().size()
 				&& empleador.getElecciones().getEmpleados().get(k).equals(empleado));
 	}
+	
+	
 }

@@ -1,6 +1,8 @@
 package paquete;
 
 
+import java.io.Serializable;
+
 import formularioclases.CargaHoraria;
 import formularioclases.EstudiosCursados;
 import formularioclases.Experiencia;
@@ -9,7 +11,7 @@ import formularioclases.RangoEtario;
 import formularioclases.Remuneracion;
 import formularioclases.TipoPuesto;
 
-public class FormularioDeBusqueda
+public class FormularioDeBusqueda implements Serializable
 {
     /**
      * @aggregation composite

@@ -2,11 +2,10 @@ package paquete;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.Scanner;
 
 import excepciones.ListaNoGeneradaException;
-import state.CanceladoState;
-import state.SuspendidoState;
 import subclasesDeAtributosDeFormulario.CargaCompleta;
 import subclasesDeAtributosDeFormulario.CargaExtendida;
 import subclasesDeAtributosDeFormulario.CargaMedia;
@@ -34,7 +33,7 @@ import subclasesDeAtributosDeFormulario.V3;
  *         Clase que representa a un Empleador, hereda estados y comportamientos
  *         de la clase UsuarioInteractivo
  */
-public class Empleador extends UsuarioInteractivo
+public class Empleador extends UsuarioInteractivo implements Runnable
 {
 
 	// private boolean juridica;
@@ -42,11 +41,11 @@ public class Empleador extends UsuarioInteractivo
 	private ArrayList<TicketBuscaEmpleado> tickets = new ArrayList<TicketBuscaEmpleado>();
 	private Rubro rubro;
 	private Persona persona;
-
+	private ListaDelEmpleador elecciones;
 	/**
 	 * @aggregation composite
 	 */
-	private ListaDelEmpleador elecciones;
+	
 
 	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, Persona persona,
 			Rubro rubro)
@@ -188,12 +187,12 @@ public class Empleador extends UsuarioInteractivo
 		switch (c)
 		{
 		case 's': // suspender
-			this.tickets.get(i).setEstado(new SuspendidoState(this.tickets.get(i)));
+			this.tickets.get(i).suspende();
 			break;
 		case 'x': // activar
-			this.tickets.get(i).getEstado().gestionarTicket();
+			this.tickets.get(i).gestionarTicket();
 		case 'k':
-			this.tickets.get(i).setEstado(new CanceladoState(this.tickets.get(i)));
+			this.tickets.get(i).cancela();
 			break;
 		case 'a': // alta de un nuevo ticket. no verifico null porque puedo tener muchos tickets
 					// aquí
@@ -441,8 +440,8 @@ public class Empleador extends UsuarioInteractivo
 			int i = 0;
 			while (i < empleados.size()) // para todos los empleados disponibles
 			{
-				if (((Empleado) empleados.get(i)).getTicket().getEstado().equals("Activo"))
-					this.getTickets().get(num).getEstado().rondaEncuentros(this, empleados.get(i),this.getTickets().get(num));
+				if (((Empleado) empleados.get(i)).getTicket().diceEstado().equals("Activo"))
+					this.getTickets().get(num).rondaEncuentros(this, empleados.get(i),this.getTickets().get(num));
 				i++;
 			}
 
@@ -544,6 +543,28 @@ public class Empleador extends UsuarioInteractivo
 
 		System.out.println(aux * formulario.getRemuneracion().getValor() - this.getPuntaje() * 0.01);
 
+	}
+	
+	@Override
+	public void run()
+	{
+		for(int i = 0; i < 3; i++)
+		{
+			String locacion=null;
+			Random r = new Random();
+			int num = r.nextInt(3);
+			switch (num)
+			{
+			case 0:
+				locacion = "HomeOffice";
+			case 1:
+				locacion = "Presencial";
+			case 2:
+				locacion = "Indistinto";
+			}
+			BolsaDeTrabajo.getInstancia().agregaEmpleo(new TicketSimplificado(this.rubro.toString(),locacion,this));
+		}
+		
 	}
 
 }

@@ -1,9 +1,10 @@
 package paquete;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class ListaDelEmpleador extends Lista
+public class ListaDelEmpleador extends Lista implements Serializable
 {
     /**
      * @aggregation shared

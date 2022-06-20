@@ -1,5 +1,7 @@
 package paquete;
 
+import java.io.Serializable;
+
 import excepciones.ListaNoGeneradaException;
 
 /**
@@ -7,7 +9,7 @@ import excepciones.ListaNoGeneradaException;
  *         puede registrar.
  *
  */
-public abstract class UsuarioInteractivo extends Usuario
+public abstract class UsuarioInteractivo extends Usuario implements Serializable
 {
 
 	private int puntaje;

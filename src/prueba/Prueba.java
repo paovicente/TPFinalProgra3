@@ -1,5 +1,6 @@
 package prueba;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -237,7 +238,32 @@ public class Prueba {
 				sistema.calcularComision(empleador3, form4);*/
 			} else
 				System.out.println("Eleccion incorrecta.");
+			
+			
+		System.out.println("Persistir datos??? \n 1-Escribir \n 2-Leer \n 3-Nada");
+		int num= scanner.nextInt();
+		switch (num) {
+			case 1: try {
+				sistema.escribirPersistencia();
+			} catch (IOException e) {
+				System.out.println("IOException :"+e.getMessage());
+			}
+			break;
+			case 2: try {
+				sistema.leerPersistencia();
+			} catch (IOException e) {
+				System.out.println("IOException: "+ e.getMessage());
+			} catch (ClassNotFoundException e) {
+				 System.out.println("ClassNotFound:"+ e.getMessage());
+			} catch (Exception e) {
+				System.out.println("Exception: "+ e.getMessage());
+			}
+			break;
+			default: System.out.println("Finalizando programa");
+			break;
+		}
 	
 	}
+	
 
 }
