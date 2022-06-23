@@ -2,6 +2,11 @@ package paquete;
 
 import java.util.Scanner;
 
+import DecoratorRubros.DecoratorComercioInternacional;
+import DecoratorRubros.DecoratorComercioLocal;
+import DecoratorRubros.DecoratorSalud;
+import DecoratorRubros.IPersona;
+
 /**
  * @author Usuario
  *<br>
@@ -14,8 +19,7 @@ public class UsuarioFactory
 	private String apellido;
 	private String telefono;
 	private int edad;
-	private Persona persona;
-	private Rubro rubro;
+	private IPersona persona;
 	private Scanner scanner = new Scanner(System.in);
 
 	// funcion para crear ticket y formulario desde aki :)
@@ -26,6 +30,8 @@ public class UsuarioFactory
 	public void seteaDatosEmpleador()
 	{
 
+		IPersona encapsulado = null;
+		IPersona respuesta = null;
 		System.out.println("Ingrese la razon social (nombre)");
 		this.nombre = scanner.nextLine();
 		int i = 0;
@@ -36,9 +42,9 @@ public class UsuarioFactory
 			i = scanner.nextInt(); 
 			scanner.nextLine();
 			if (i == 1)
-				this.persona=new PersonaFisica();
+				encapsulado=new PersonaFisica();
 			else if (i == 2)
-				this.persona=new PersonaJuridica();
+				encapsulado=new PersonaJuridica();
 			else
 				System.out.println("Opcion incorrecta");
 		}
@@ -51,14 +57,15 @@ public class UsuarioFactory
 			scanner.nextLine();
 
 			if (i == 1)
-				this.rubro = new RubroSalud();
+				respuesta = new DecoratorSalud(encapsulado);
 			else if (i == 2)
-				this.rubro = new RubroComerciolocal();
+				respuesta = new DecoratorComercioLocal(encapsulado);
 			else if (i == 3)
-				this.rubro = new RubroComercioInternacional();
+				respuesta = new DecoratorComercioInternacional(encapsulado);
 			else
 				System.out.println("Opcion incorrecta");
 		}
+		this.persona=respuesta;
 
 	}
 
@@ -100,7 +107,7 @@ public class UsuarioFactory
 			} else if (tipoUsuario == 2)
 			{
 				this.seteaDatosEmpleador();
-				return new Empleador(this.nombre, nombreUsuario, contrasenia, 0, this.persona, this.rubro);
+				return new Empleador(this.nombre, nombreUsuario, contrasenia, 0, this.persona);
 			} else if (tipoUsuario == 70) {  //codigo de admin 70
 				System.out.println("Ingresa tu nombre de admin");
 				this.nombre = scanner.nextLine();

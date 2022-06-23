@@ -1,6 +1,8 @@
 package paquete;
 
-public class TicketSimplificado //no se extiende de ticket!!
+import java.util.Observable;
+
+public class TicketSimplificado extends Observable//no se extiende de ticket!!
 {
 
 	private String tipoDeTrabajo;
@@ -56,6 +58,11 @@ public class TicketSimplificado //no se extiende de ticket!!
 		this.empleador = empleador;
 	}
 	
+	public void cambiaEstado()
+	{
+		this.setChanged();
+		this.notifyObservers();
+	}
 	
 
 

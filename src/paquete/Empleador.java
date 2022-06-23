@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+import DecoratorRubros.IPersona;
 import excepciones.ListaNoGeneradaException;
 import subclasesDeAtributosDeFormulario.CargaCompleta;
 import subclasesDeAtributosDeFormulario.CargaExtendida;
@@ -39,21 +40,18 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 	// private boolean juridica;
 	// private String rubro;
 	private ArrayList<TicketBuscaEmpleado> tickets = new ArrayList<TicketBuscaEmpleado>();
-	private Rubro rubro;
-	private Persona persona;
+	private IPersona persona;
 	private ListaDelEmpleador elecciones;
 	/**
 	 * @aggregation composite
 	 */
 	
 
-	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, Persona persona,
-			Rubro rubro)
+	public Empleador(String nombre, String nombreDeUsuario, String contrasenia, int puntaje, IPersona persona)
 	{
 		super(nombre, nombreDeUsuario, contrasenia, puntaje);
 		// this.juridica = juridica;
 		this.persona = persona;
-		this.rubro = rubro;
 	}
 
 	@Override
@@ -79,15 +77,6 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 		this.tickets.add(ticket);
 	}
 
-	public boolean isJuridica()
-	{
-		return persona.juridica();
-	}
-
-	public String getRubro()
-	{
-		return rubro.toString();
-	}
 
 	public ArrayList<TicketBuscaEmpleado> getTickets()
 	{
@@ -124,7 +113,7 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 	@Override
 	public String toString()
 	{
-		return super.toString() + "Empleador [juridica=" + this.isJuridica() + ", rubro=" + rubro + ", tickets="
+		return super.toString() + "Empleador [tickets="
 				+ tickets + "]";
 	}
 
@@ -189,7 +178,7 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 		case 's': // suspender
 			this.tickets.get(i).suspende();
 			break;
-		case 'x': // activar
+		case 'x': //activar (solo si estaba previamente suspendido)
 			this.tickets.get(i).gestionarTicket();
 		case 'k':
 			this.tickets.get(i).cancela();
@@ -527,7 +516,7 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 	{
 		double aux = 0;
 		super.calcularComision(formulario);
-		aux = this.rubro.persona(this.persona); // double dispatch agregado aca!!
+		aux = this.persona.calcularComision(); // double dispatch agregado aca!!
 
 		// este de abajo era el codigo anterior, estaba asi porq no teniamos creadas las
 		// clases de los tipos de persona ni los rubros: tuve q crearlas xd
@@ -548,6 +537,8 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 	@Override
 	public void run()
 	{
+		Observador obs = new Observador();
+		TicketSimplificado ticket=null;
 		for(int i = 0; i < 3; i++)
 		{
 			String locacion=null;
@@ -557,12 +548,18 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 			{
 			case 0:
 				locacion = "HomeOffice";
+				break;
 			case 1:
 				locacion = "Presencial";
+				break;
 			case 2:
 				locacion = "Indistinto";
+				break;
 			}
-			BolsaDeTrabajo.getInstancia().agregaEmpleo(new TicketSimplificado(this.rubro.toString(),locacion,this));
+			ticket = new TicketSimplificado(this.persona.diceRubro(),locacion,this);
+			obs.agregarObservable(ticket);
+			BolsaDeTrabajo.getInstancia().agregaEmpleo(ticket);
+			Util.espera(3000);
 		}
 		
 	}

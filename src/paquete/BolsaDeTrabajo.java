@@ -15,71 +15,61 @@ public class BolsaDeTrabajo
 		return _instancia;
 	}
 
-	public TicketSimplificado buscaEmpleo(String nombre, String tipoDeTrabajo)
+	public synchronized TicketSimplificado buscaEmpleo(String nombre, String tipoDeTrabajo)
 	{
-		synchronized (this.tickets)
+		TicketSimplificado ticket = null;
+		int i = 0;
+		while (i < tickets.size() && ticket == null)
 		{
-			TicketSimplificado ticket = null;
-			int i = 0;
-			while (i < tickets.size() && ticket == null)
+			if (tickets.get(i).getTipoDeTrabajo().equals(tipoDeTrabajo))
 			{
-				if (tickets.get(i).getTipoDeTrabajo().equals(tipoDeTrabajo))
-				{
-					ticket = tickets.get(i);
-					while (ticket.getEstado().equals("EnConsulta"))
-						try
-						{
-							System.out.println(nombre + " no consulta el ticket de " + ticket.getEmpleador().getNombre()
-									+ " porque ya esta en consulta.\n");
-							this.tickets.wait();
-						} catch (InterruptedException e)
-						{
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-					if (!ticket.getEstado().equals("NoDisponible"))
+				ticket = tickets.get(i);
+				while (ticket.getEstado().equals("en consulta"))
+					try
 					{
-						ticket.setEstado("EnConsulta");
-						System.out.println(
-								nombre + " esta en proceso de consulta con '" + ticket.getEmpleador().getNombre());
-					} else
-						ticket = null;
-				}
-				i++;
+						System.out.println(nombre + " no consulta el ticket de " + ticket.getEmpleador().getNombre()
+								+ " porque ya esta en consulta.\n");
+						this.wait();
+					} catch (InterruptedException e)
+					{
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				if (!ticket.getEstado().equals("no disponible"))
+				{
+					ticket.setEstado("en consulta");
+					ticket.cambiaEstado(); //esto es para llamar a los metodos de observable
+					System.out
+							.println(nombre + " esta en proceso de consulta con '" + ticket.getEmpleador().getNombre());
+				} else
+					ticket = null;
 			}
-
-			return ticket;
-
+			i++;
 		}
+		return ticket;
 	}
 
-	public void devuelveTicket(String nombre, TicketSimplificado ticket)
+	public synchronized void devuelveTicket(String nombre, TicketSimplificado ticket)
 	{
-		synchronized (this.tickets)
-		{
-			System.out.println(nombre + " no consigue trabajo porque su locacion no es compatible con la de "+ticket.getEmpleador().getNombre());
-			ticket.setEstado("Disponible");
-			this.tickets.notifyAll();
-		}
+		System.out.println(nombre + " no consigue trabajo porque su locacion no es compatible con la de "
+				+ ticket.getEmpleador().getNombre());
+		ticket.setEstado("disponible");
+		ticket.cambiaEstado(); //esto es para llamar a los metodos de observable
+		this.notifyAll();
 	}
 
-	public void noDevuelveTicket(String nombre, TicketSimplificado ticket)
+	public synchronized void noDevuelveTicket(String nombre, TicketSimplificado ticket)
 	{
-		synchronized (this.tickets)
-		{
-			System.out.println(nombre + " consigue empleo con "+ticket.getEmpleador().getNombre()+".");
-			this.tickets.remove(ticket);
-			ticket.setEstado("NoDisponible");
-			this.tickets.notifyAll();
-		}
+		System.out.println(nombre + " consigue empleo con " + ticket.getEmpleador().getNombre() + ".");
+		this.tickets.remove(ticket);
+		ticket.setEstado("no disponible");
+		ticket.cambiaEstado(); //esto es para llamar a los metodos de observable
+		this.notifyAll();
 	}
 
-	public void agregaEmpleo(TicketSimplificado ticket)
+	public synchronized void agregaEmpleo(TicketSimplificado ticket)
 	{
-		synchronized (this.tickets)
-		{
-			this.tickets.add(ticket);
-		}
+		this.tickets.add(ticket);
 	}
 }

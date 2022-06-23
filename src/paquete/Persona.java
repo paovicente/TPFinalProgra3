@@ -2,10 +2,9 @@ package paquete;
 
 import java.io.Serializable;
 
-public abstract class Persona implements Serializable{
+import DecoratorRubros.IPersona;
+
+public abstract class Persona implements Serializable, IPersona{
 	
-	public abstract double porcentajeSalud();
-	public abstract double porcentajeComercioLocal();
-	public abstract double porcentajeComercioInternacional();
 	public abstract boolean juridica();
 }

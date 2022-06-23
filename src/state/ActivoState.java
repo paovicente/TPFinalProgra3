@@ -21,7 +21,7 @@ public class ActivoState implements IState
 	@Override
 	public void gestionarTicket()
 	{
-		//ya esta activo
+		System.out.println("Tciket ya activado previamente.");
 	}
 
 	@Override

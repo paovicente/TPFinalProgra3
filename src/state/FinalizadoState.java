@@ -18,7 +18,7 @@ public class FinalizadoState implements IState
 	@Override
 	public void gestionarTicket()
 	{
-		this.ticket.setEstado(new ActivoState(this.ticket));
+		System.out.println("Ticket finalizado. Imposible activar nuevamente");
 		
 	}
 

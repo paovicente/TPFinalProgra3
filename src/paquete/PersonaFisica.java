@@ -1,22 +1,22 @@
 package paquete;
 
-public class PersonaFisica extends Persona {
-	
-	
-	public double porcentajeSalud() {
-		return 0.6;
-	}
-	
-	public double porcentajeComercioLocal() {
-		return 0.7;
-	}
+public class PersonaFisica extends Persona
+{
 
-
-	public double porcentajeComercioInternacional() {
-		return 0.8;
-	}
-	
-	public boolean juridica() {
+	public boolean juridica()
+	{
 		return false;
+	}
+
+	@Override
+	public double calcularComision()
+	{
+		return 0.;
+	}
+
+	@Override
+	public String diceRubro()
+	{
+		return "";
 	}
 }

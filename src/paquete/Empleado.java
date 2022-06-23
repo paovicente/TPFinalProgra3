@@ -139,7 +139,7 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 		case 's':
 			this.getTicket().suspende();
 			break;
-		case 'x':
+		case 'x': //activar (solo si estaba previamente suspendido)
 			this.getTicket().gestionarTicket();
 		case 'k':
 			this.getTicket().cancela();
@@ -467,10 +467,13 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 			{
 			case 0:
 				tipoDeTrabajo = "RubroComercioInternacional";
+				break;
 			case 1:
-				tipoDeTrabajo = "RubroComerciolocal";
+				tipoDeTrabajo = "RubroComercioLocal";
+				break;
 			case 2:
 				tipoDeTrabajo = "RubroSalud";
+				break;
 			}
 			ticket = BolsaDeTrabajo.getInstancia().buscaEmpleo(this.getNombre(), tipoDeTrabajo);
 			if (ticket != null)

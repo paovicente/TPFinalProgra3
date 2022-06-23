@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import DecoratorRubros.DecoratorSalud;
 import excepciones.ContraseniaIncorrectaException;
 import excepciones.ListaNoGeneradaException;
 import excepciones.NombreIncorrectoException;
@@ -13,7 +14,6 @@ import paquete.Empleador;
 import paquete.FormularioDeBusqueda;
 import paquete.PersonaFisica;
 import paquete.PersonaJuridica;
-import paquete.RubroSalud;
 import paquete.Sistema;
 import paquete.TicketBuscaEmpleado;
 import paquete.TicketBuscaEmpleo;
@@ -142,7 +142,7 @@ public class Prueba {
 				pesos.add((double) 5);
 				pesos.add((double) 5);
 				pesos.add((double) 5);
-				Usuario usuario2 = new Empleador("fravega","macri","def456",0,new PersonaFisica(),new RubroSalud());
+				Usuario usuario2 = new Empleador("fravega","macri","def456",0,new DecoratorSalud(new PersonaFisica()));
 				
 				Empleador empleador1 = (Empleador) usuario2;
 				empleador1.addTicket(new TicketBuscaEmpleado(form1,2,pesos));
@@ -157,7 +157,7 @@ public class Prueba {
 				form3.setRangoEtario(new MenosDe40());
 				form3.setRemuneracion(new V1());
 				form3.setTipoPuesto(new Junior());
-				Usuario usuario3 = new Empleador("mcdonalds","messi","xyz123",0,new PersonaJuridica(),new RubroSalud());
+				Usuario usuario3 = new Empleador("mcdonalds","messi","xyz123",0,new DecoratorSalud(new PersonaJuridica()));
 				
 				Empleador empleador2= (Empleador) usuario3;
 		
@@ -174,7 +174,7 @@ public class Prueba {
 				empleador2.addTicket(new TicketBuscaEmpleado(form3,2,pesos1));
 				sistema.addEmpleador(empleador2);
 				
-				Usuario usuario4= new Empleador("MercadoLibre","aaa","bbb",1,new PersonaJuridica(),new RubroSalud());
+				Usuario usuario4= new Empleador("MercadoLibre","aaa","bbb",1,new DecoratorSalud(new PersonaJuridica()));
 				FormularioDeBusqueda form4= new FormularioDeBusqueda();
 				form4.setCargahoraria(new CargaCompleta());
 				form4.setEstudiosCursados(new Secundario());
