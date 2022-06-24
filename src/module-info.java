@@ -1,2 +1,3 @@
-module paquete {
+module Ventana {
+    requires java.desktop;
 }
