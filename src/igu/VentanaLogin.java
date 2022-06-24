@@ -26,6 +26,7 @@ import javax.swing.border.LineBorder;
 import java.awt.Rectangle;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JPasswordField;
 
 public class VentanaLogin extends JFrame implements ActionListener {
 
@@ -36,7 +37,6 @@ public class VentanaLogin extends JFrame implements ActionListener {
 	private JPanel panelBotones;
 	private JLabel labelNombreUsuario;
 	private JLabel labelPassword;
-	private JTextField inputPassword;
 	private JPanel panel_NombreUsuario;
 	private JPanel panel_inputNombreUsuario;
 	private JPanel panel_Password;
@@ -52,6 +52,7 @@ public class VentanaLogin extends JFrame implements ActionListener {
 	private JLabel lblAgenciaDeEmpleo;
 	private JLabel labelFoto;
 	private JButton btnRegistrarse;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -173,11 +174,10 @@ public class VentanaLogin extends JFrame implements ActionListener {
 		fl_panel_InputPasswordCentrado.setVgap(40);
 		this.panel_inputPassword.add(this.panel_InputPasswordCentrado);
 		
-		this.inputPassword = new JTextField();
-		this.inputPassword.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		this.inputPassword.setMargin(new Insets(2, 0, 2, 0));
-		this.panel_InputPasswordCentrado.add(this.inputPassword);
-		this.inputPassword.setColumns(10);
+		this.passwordField = new JPasswordField();
+		this.passwordField.setPreferredSize(new Dimension(135, 25));
+		this.passwordField.setMargin(new Insets(2, 0, 2, 0));
+		this.panel_InputPasswordCentrado.add(this.passwordField);
 		
 		this.panelBotones = new JPanel();
 		this.panelBotones.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
