@@ -78,6 +78,7 @@ public class VentanaRegistroEmpleador extends JFrame {
 		setContentPane(this.contentPane);
 		
 		this.panelLabelRegistroEmpleador = new JPanel();
+		this.panelLabelRegistroEmpleador.setBackground(SystemColor.inactiveCaption);
 		this.panelLabelRegistroEmpleador.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		this.contentPane.add(this.panelLabelRegistroEmpleador, BorderLayout.NORTH);
 		
@@ -100,6 +101,7 @@ public class VentanaRegistroEmpleador extends JFrame {
 		this.panel_NombreYPersona.setLayout(new BorderLayout(0, 0));
 		
 		this.panel_NombreEmpleador = new JPanel();
+		this.panel_NombreEmpleador.setBackground(SystemColor.inactiveCaption);
 		this.panel_NombreEmpleador.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		this.panel_NombreYPersona.add(this.panel_NombreEmpleador, BorderLayout.NORTH);
 		this.panel_NombreEmpleador.setLayout(new GridLayout(0, 1, 0, 0));
@@ -110,14 +112,15 @@ public class VentanaRegistroEmpleador extends JFrame {
 		this.panel_NombreEmpleador.add(this.Label_NombreEmpleador);
 		
 		this.panel_InputNombreEmpleador = new JPanel();
+		this.panel_InputNombreEmpleador.setBackground(SystemColor.inactiveCaption);
 		this.panel_NombreEmpleador.add(this.panel_InputNombreEmpleador);
 		this.panel_InputNombreEmpleador.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		this.inputNombreEmpleador = new JTextField();
+		this.inputNombreEmpleador.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		this.inputNombreEmpleador.setMargin(new Insets(2, 20, 2, 20));
 		this.inputNombreEmpleador.setPreferredSize(new Dimension(300, 20));
 		this.panel_InputNombreEmpleador.add(this.inputNombreEmpleador);
-		this.inputNombreEmpleador.setHorizontalAlignment(SwingConstants.CENTER);
 		this.inputNombreEmpleador.setColumns(10);
 		
 		this.panel_PersonaEmpleador = new JPanel();
@@ -126,6 +129,7 @@ public class VentanaRegistroEmpleador extends JFrame {
 		this.panel_PersonaEmpleador.setLayout(new GridLayout(3, 1, 0, 0));
 		
 		this.panel_LabelPersona = new JPanel();
+		this.panel_LabelPersona.setBackground(SystemColor.inactiveCaption);
 		this.panel_LabelPersona.setBorder(null);
 		this.panel_PersonaEmpleador.add(this.panel_LabelPersona);
 		this.panel_LabelPersona.setLayout(new GridLayout(0, 1, 0, 0));
@@ -136,12 +140,14 @@ public class VentanaRegistroEmpleador extends JFrame {
 		this.labelPersonaEmpleador.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.radioButtonJuridica = new JRadioButton("Persona F\u00EDsica");
+		this.radioButtonJuridica.setBackground(SystemColor.inactiveCaption);
 		buttonGroup.add(this.radioButtonJuridica);
 		this.radioButtonJuridica.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.radioButtonJuridica.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_PersonaEmpleador.add(this.radioButtonJuridica);
 		
 		this.rdbtnNewRadioButton_1 = new JRadioButton("Persona Jur\u00EDdica");
+		this.rdbtnNewRadioButton_1.setBackground(SystemColor.inactiveCaption);
 		buttonGroup.add(this.rdbtnNewRadioButton_1);
 		this.rdbtnNewRadioButton_1.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtnNewRadioButton_1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -154,28 +160,33 @@ public class VentanaRegistroEmpleador extends JFrame {
 		this.panel_RubroEmpleador.setLayout(new GridLayout(4, 0, 0, 0));
 		
 		this.panel_LabelRubro = new JPanel();
+		this.panel_LabelRubro.setBackground(SystemColor.inactiveCaption);
 		this.panel_LabelRubro.setBorder(null);
 		this.panel_RubroEmpleador.add(this.panel_LabelRubro);
 		this.panel_LabelRubro.setLayout(new BorderLayout(0, 0));
 		
 		this.labelRubro = new JLabel("Rubro");
+		this.labelRubro.setBackground(SystemColor.inactiveCaption);
 		this.panel_LabelRubro.add(this.labelRubro);
 		this.labelRubro.setFont(new Font("Century Gothic", Font.BOLD, 18));
 		this.labelRubro.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.radioButtonSalud = new JRadioButton("Salud");
+		this.radioButtonSalud.setBackground(SystemColor.inactiveCaption);
 		buttonGroup_1.add(this.radioButtonSalud);
 		this.radioButtonSalud.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.radioButtonSalud.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_RubroEmpleador.add(this.radioButtonSalud);
 		
 		this.radioButtonComercioLocal = new JRadioButton("Comercio local");
+		this.radioButtonComercioLocal.setBackground(SystemColor.inactiveCaption);
 		buttonGroup_1.add(this.radioButtonComercioLocal);
 		this.radioButtonComercioLocal.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.radioButtonComercioLocal.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_RubroEmpleador.add(this.radioButtonComercioLocal);
 		
 		this.radioButtonComercioInternacional = new JRadioButton("Comercio Internacional");
+		this.radioButtonComercioInternacional.setBackground(SystemColor.inactiveCaption);
 		buttonGroup_1.add(this.radioButtonComercioInternacional);
 		this.radioButtonComercioInternacional.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.radioButtonComercioInternacional.setHorizontalAlignment(SwingConstants.CENTER);
@@ -183,7 +194,7 @@ public class VentanaRegistroEmpleador extends JFrame {
 		
 		this.panel_BotonRegistrarse = new JPanel();
 		this.panel_BotonRegistrarse.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
-		this.panel_BotonRegistrarse.setBackground(SystemColor.menu);
+		this.panel_BotonRegistrarse.setBackground(SystemColor.inactiveCaption);
 		this.panel_DatosYBotonEmpleador.add(this.panel_BotonRegistrarse, BorderLayout.SOUTH);
 		
 		this.buttonRegistrarse = new JButton("Registrarse");

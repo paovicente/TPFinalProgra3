@@ -69,11 +69,13 @@ public class VentanaRegistro extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 849, 504);
 		this.contentPane = new JPanel();
+		this.contentPane.setBackground(Color.BLACK);
 		this.contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(this.contentPane);
 		this.contentPane.setLayout(new BorderLayout(0, 0));
 		
 		this.panel_titulo = new JPanel();
+		this.panel_titulo.setBackground(SystemColor.inactiveCaption);
 		this.contentPane.add(this.panel_titulo, BorderLayout.NORTH);
 		this.panel_titulo.setLayout(new BorderLayout(0, 0));
 		
@@ -84,6 +86,7 @@ public class VentanaRegistro extends JFrame {
 		this.panel_titulo.add(this.label_tituloRegistro, BorderLayout.NORTH);
 		
 		this.panel_IngresoDatosRegistro = new JPanel();
+		this.panel_IngresoDatosRegistro.setBackground(Color.BLACK);
 		this.contentPane.add(this.panel_IngresoDatosRegistro, BorderLayout.CENTER);
 		this.panel_IngresoDatosRegistro.setLayout(new GridLayout(1, 2, 0, 0));
 		
@@ -92,6 +95,7 @@ public class VentanaRegistro extends JFrame {
 		this.panel_tipoUsuario.setLayout(new BorderLayout(0, 0));
 		
 		this.panel_tituloTipoUsuario = new JPanel();
+		this.panel_tituloTipoUsuario.setBackground(SystemColor.inactiveCaption);
 		this.panel_tipoUsuario.add(this.panel_tituloTipoUsuario, BorderLayout.NORTH);
 		
 		this.lblSeleccioneTipoDe = new JLabel("Seleccione tipo de usuario");
@@ -103,25 +107,30 @@ public class VentanaRegistro extends JFrame {
 		this.panel_opcionesTipoUsuario.setLayout(new GridLayout(3, 1, 0, 0));
 		
 		this.rdbtn_opcionEmpleado = new JRadioButton("Empleado");
+		this.rdbtn_opcionEmpleado.setBackground(SystemColor.inactiveCaption);
 		this.rdbtn_opcionEmpleado.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtn_opcionEmpleado.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_opcionesTipoUsuario.add(this.rdbtn_opcionEmpleado);
 		
 		this.rdbtn_opcionEmpleador = new JRadioButton("Empleador");
+		this.rdbtn_opcionEmpleador.setBackground(SystemColor.inactiveCaption);
 		this.rdbtn_opcionEmpleador.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtn_opcionEmpleador.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_opcionesTipoUsuario.add(this.rdbtn_opcionEmpleador);
 		
 		this.rdbtn_opcionAdmin = new JRadioButton("Admin");
+		this.rdbtn_opcionAdmin.setBackground(SystemColor.inactiveCaption);
 		this.rdbtn_opcionAdmin.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtn_opcionAdmin.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_opcionesTipoUsuario.add(this.rdbtn_opcionAdmin);
 		
 		this.panel_IngresaDatosUsuario = new JPanel();
+		this.panel_IngresaDatosUsuario.setBackground(SystemColor.inactiveCaption);
 		this.panel_IngresoDatosRegistro.add(this.panel_IngresaDatosUsuario);
 		this.panel_IngresaDatosUsuario.setLayout(new GridLayout(5, 1, 0, 0));
 		
 		this.panel_labelNombreUsuario = new JPanel();
+		this.panel_labelNombreUsuario.setBackground(SystemColor.inactiveCaption);
 		this.panel_IngresaDatosUsuario.add(this.panel_labelNombreUsuario);
 		this.panel_labelNombreUsuario.setLayout(new BorderLayout(0, 0));
 		
@@ -132,6 +141,7 @@ public class VentanaRegistro extends JFrame {
 		this.label_NombreDeUsuario.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.panel_inputNombreUsuario = new JPanel();
+		this.panel_inputNombreUsuario.setBackground(SystemColor.inactiveCaption);
 		this.panel_IngresaDatosUsuario.add(this.panel_inputNombreUsuario);
 		this.panel_inputNombreUsuario.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -141,6 +151,7 @@ public class VentanaRegistro extends JFrame {
 		this.input_NombreUsuario.setColumns(10);
 		
 		this.panel_labelPassword = new JPanel();
+		this.panel_labelPassword.setBackground(SystemColor.inactiveCaption);
 		this.panel_IngresaDatosUsuario.add(this.panel_labelPassword);
 		this.panel_labelPassword.setLayout(new BorderLayout(0, 0));
 		
@@ -150,6 +161,7 @@ public class VentanaRegistro extends JFrame {
 		this.label_Password.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		this.panel_inputPassword = new JPanel();
+		this.panel_inputPassword.setBackground(SystemColor.inactiveCaption);
 		this.panel_IngresaDatosUsuario.add(this.panel_inputPassword);
 		
 		this.passwordField = new JPasswordField();
@@ -157,6 +169,7 @@ public class VentanaRegistro extends JFrame {
 		this.panel_inputPassword.add(this.passwordField);
 		
 		this.panel_btnSiguiente = new JPanel();
+		this.panel_btnSiguiente.setBackground(SystemColor.inactiveCaption);
 		this.panel_IngresaDatosUsuario.add(this.panel_btnSiguiente);
 		
 		this.btn_Siguiente = new JButton("Siguiente");
