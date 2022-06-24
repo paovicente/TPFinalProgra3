@@ -35,15 +35,15 @@ public class VentanaLogin extends JFrame implements ActionListener {
 	private JPanel panelDatos;
 	private JPanel panelBotones;
 	private JLabel labelNombreUsuario;
-	private JLabel labelContraseña;
-	private JTextField inputContraseña;
+	private JLabel labelPassword;
+	private JTextField inputPassword;
 	private JPanel panel_NombreUsuario;
 	private JPanel panel_inputNombreUsuario;
-	private JPanel panel_Contraseña;
-	private JPanel panel_inputContraseña;
+	private JPanel panel_Password;
+	private JPanel panel_inputPassword;
 	private JPanel panel_InputCentrado;
 	private JTextField inputNombreUsuario;
-	private JPanel panel_InputContraseñaCentrado;
+	private JPanel panel_InputPasswordCentrado;
 	private JButton btnIniciarSesion;
 	private JPanel panelBotonRegistro;
 	private JPanel panelBotonIniciarSesion;
@@ -73,6 +73,7 @@ public class VentanaLogin extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public VentanaLogin() {
+		setTitle("Agencia de Empleo \"Grupo 3\" - Inicio");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 837, 479);
 		this.contentPane = new JPanel();
@@ -148,35 +149,35 @@ public class VentanaLogin extends JFrame implements ActionListener {
 		this.inputNombreUsuario.setColumns(10);
 		this.panel_InputCentrado.add(this.inputNombreUsuario);
 		
-		this.panel_Contraseña = new JPanel();
-		this.panel_Contraseña.setBackground(SystemColor.inactiveCaption);
-		this.panel_Contraseña.setBorder(null);
-		this.panelDatos.add(this.panel_Contraseña);
-		this.panel_Contraseña.setLayout(new GridLayout(1, 1, 0, 0));
+		this.panel_Password = new JPanel();
+		this.panel_Password.setBackground(SystemColor.inactiveCaption);
+		this.panel_Password.setBorder(null);
+		this.panelDatos.add(this.panel_Password);
+		this.panel_Password.setLayout(new GridLayout(1, 1, 0, 0));
 		
-		this.labelContraseña = new JLabel("Contrase\u00F1a");
-		this.labelContraseña.setBackground(Color.WHITE);
-		this.labelContraseña.setHorizontalAlignment(SwingConstants.CENTER);
-		this.labelContraseña.setFont(new Font("Century Gothic", Font.PLAIN, 20));
-		this.panel_Contraseña.add(this.labelContraseña);
+		this.labelPassword = new JLabel("Contrase\u00F1a");
+		this.labelPassword.setBackground(Color.WHITE);
+		this.labelPassword.setHorizontalAlignment(SwingConstants.CENTER);
+		this.labelPassword.setFont(new Font("Century Gothic", Font.PLAIN, 20));
+		this.panel_Password.add(this.labelPassword);
 		
-		this.panel_inputContraseña = new JPanel();
-		this.panel_inputContraseña.setBorder(null);
-		this.panelDatos.add(this.panel_inputContraseña);
-		this.panel_inputContraseña.setLayout(new GridLayout(1, 1, 0, 0));
+		this.panel_inputPassword = new JPanel();
+		this.panel_inputPassword.setBorder(null);
+		this.panelDatos.add(this.panel_inputPassword);
+		this.panel_inputPassword.setLayout(new GridLayout(1, 1, 0, 0));
 		
-		this.panel_InputContraseñaCentrado = new JPanel();
-		this.panel_InputContraseñaCentrado.setBackground(SystemColor.inactiveCaption);
-		FlowLayout flowLayout = (FlowLayout) this.panel_InputContraseñaCentrado.getLayout();
-		flowLayout.setHgap(0);
-		flowLayout.setVgap(40);
-		this.panel_inputContraseña.add(this.panel_InputContraseñaCentrado);
+		this.panel_InputPasswordCentrado = new JPanel();
+		this.panel_InputPasswordCentrado.setBackground(SystemColor.inactiveCaption);
+		FlowLayout fl_panel_InputPasswordCentrado = (FlowLayout) this.panel_InputPasswordCentrado.getLayout();
+		fl_panel_InputPasswordCentrado.setHgap(0);
+		fl_panel_InputPasswordCentrado.setVgap(40);
+		this.panel_inputPassword.add(this.panel_InputPasswordCentrado);
 		
-		this.inputContraseña = new JTextField();
-		this.inputContraseña.setFont(new Font("Century Gothic", Font.PLAIN, 14));
-		this.inputContraseña.setMargin(new Insets(2, 0, 2, 0));
-		this.panel_InputContraseñaCentrado.add(this.inputContraseña);
-		this.inputContraseña.setColumns(10);
+		this.inputPassword = new JTextField();
+		this.inputPassword.setFont(new Font("Century Gothic", Font.PLAIN, 14));
+		this.inputPassword.setMargin(new Insets(2, 0, 2, 0));
+		this.panel_InputPasswordCentrado.add(this.inputPassword);
+		this.inputPassword.setColumns(10);
 		
 		this.panelBotones = new JPanel();
 		this.panelBotones.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
