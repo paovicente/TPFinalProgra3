@@ -130,7 +130,7 @@ public class VentanaFormularioEmpleador extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaFormularioEmpleador() {
-		setTitle("Ticket Empleador");
+		setTitle("Formulario Empleador");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 911, 606);
 		this.contentPane = new JPanel();

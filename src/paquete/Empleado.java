@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import excepciones.ListaNoGeneradaException;
 import subclasesDeAtributosDeFormulario.CargaCompleta;
 import subclasesDeAtributosDeFormulario.CargaExtendida;
@@ -150,34 +152,61 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 			{
 				FormularioFactory formularioFactory = new FormularioFactory();
 				System.out.println("Ahora deberás llenar tu nuevo formulario...");
+				
+				String[] opciones = {"Home Office", "Presencial", "Indistinto"};
+				int locacion = JOptionPane.showOptionDialog(null, "Elije una locacion de preferencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0])+1;
 
-				System.out.println("Elija una locacion de preferencia");
-				System.out.println("1.Home Office      2.Presencial       3.Indistinto");
-				int locacion = scanner.nextInt();
-
-				System.out.println("Elija una remuneracion");
+				
+				//System.out.println("Elija una locacion de preferencia");
+				//System.out.println("1.Home Office      2.Presencial       3.Indistinto");
+				//int locacion = scanner.nextInt();
+				
+				
+				String[] opciones1 = {"V1", "V2", "V3"};
+				int remuneracion  = JOptionPane.showOptionDialog(null, "Elija una remuneración", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones1, opciones1[0])+1;
+			/*	System.out.println("Elija una remuneracion");
 				System.out.println("1.V1               2.V2               3.V3");
-				int remuneracion = scanner.nextInt();
+				int remuneracion = scanner.nextInt(); */
 
-				System.out.println("Elija una carga horaria");
+				
+				String[] opciones2 = {"Media", "Completa", "Extendida"};
+				int cargaHoraria  = JOptionPane.showOptionDialog(null, "Elija una carga horaria", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones2, opciones2[0])+1;
+				
+				/*System.out.println("Elija una carga horaria");
 				System.out.println("1.Media            2.Completa         3.Extendida");
-				int cargaHoraria = scanner.nextInt();
+				int cargaHoraria = scanner.nextInt(); */
 
-				System.out.println("Elija un tipo de puesto");
+				
+
+				String[] opciones3 = {"Senior", "Junior", "Management"};
+				int tipoDePuesto  = JOptionPane.showOptionDialog(null, "Elija un tipo de puesto", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones3, opciones3[0])+1;
+				
+			/*	System.out.println("Elija un tipo de puesto");
 				System.out.println("1.Senior           2.Junior           3.Management");
-				int tipoDePuesto = scanner.nextInt();
+				int tipoDePuesto = scanner.nextInt(); */
+				
 
-				System.out.println("Elija un rango etario");
+				String[] opciones4 = {"Menos de 40", "Entre 40 y 50", "Mas de 50"};
+				int rangoEtario  = JOptionPane.showOptionDialog(null, "Elije un rango etario", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones4, opciones4[0])+1;
+
+			/*	System.out.println("Elija un rango etario");
 				System.out.println("1.Menos de 40      2.Entre 40 y 50    3.Más de 50");
-				int rangoEtario = scanner.nextInt();
+				int rangoEtario = scanner.nextInt(); */
 
-				System.out.println("Elija una experiencia");
+				String[] opciones5 = {"Nada", "Media", "Mucha"};
+				int experiencia  = JOptionPane.showOptionDialog(null, "Elija una experiencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones5, opciones5[0])+1;
+				
+				/* System.out.println("Elija una experiencia");
 				System.out.println("1.Nada             2.Media            3.Mucha");
-				int experiencia = scanner.nextInt();
+				int experiencia = scanner.nextInt(); */
 
-				System.out.println("Elija estudios");
+				String[] opciones6 = {"Primario", "Secundario", "Terciario"};
+				int estudios  = JOptionPane.showOptionDialog(null, "Elija estudios", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones6, opciones6[0])+1;
+				
+				/* System.out.println("Elija estudios");
 				System.out.println("1.Primario         2.Secundario       3.Terciario");
-				int estudios = scanner.nextInt();
+				int estudios = scanner.nextInt(); */
+				
 				scanner.nextLine();
 				FormularioDeBusqueda formulario = formularioFactory.getFormularioDeBusqueda(locacion, remuneracion,
 						cargaHoraria, tipoDePuesto, rangoEtario, experiencia, estudios); // seteo el formulario de
@@ -193,18 +222,23 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 			this.ticket.toString();
 			break;
 		case 'm': // modifica un valor del formulario
-			System.out.println("¿Qué te gustaria modificar del formulario?");
+			String[] opcionesModificar = {"Carga Horaria", "Estudios Cursados", "Experiencia","Locación","Rango Etario","Remuneración","Tipo de Puesto"};
+			int i = JOptionPane.showOptionDialog(null, "¿Qué elemento deseas modificar?", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesModificar, opcionesModificar[0])+1;
+		/*	System.out.println("¿Qué te gustaria modificar del formulario?");
 			System.out.println(
 					"1. Carga Horaria \n 2.Estudios Cursados \n 3.Experiencia \n 4.Locación \n 5.Rango Etario \n 6. Remuneración \n 7.Tipo de Puesto");
 			String aux = scanner.nextLine();
-			int i = Integer.parseInt(aux);
+			int i = Integer.parseInt(aux);*/
 			int eleccion;
 			switch (i)
 			{
 			case 1:
-				System.out.println("Elija una carga horaria");
+				String[] opciones2 = {"Media", "Completa", "Extendida"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija una carga horaria", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones2, opciones2[0])+1;
+				
+				 /*System.out.println("Elija una carga horaria");
 				System.out.println("1.Media            2.Completa         3.Extendida");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -221,9 +255,12 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 2:
-				System.out.println("Elija estudios");
+				String[] opciones6 = {"Primario", "Secundario", "Terciario"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija estudios", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones6, opciones6[0])+1;
+				
+				/*System.out.println("Elija estudios");
 				System.out.println("1.Primario         2.Secundario       3.Terciario");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -240,9 +277,13 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 3:
-				System.out.println("Elija una experiencia");
+				
+				String[] opciones5 = {"Nada", "Media", "Mucha"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija una experiencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones5, opciones5[0])+1;
+				
+				/* System.out.println("Elija una experiencia");
 				System.out.println("1.Nada             2.Media            3.Mucha");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -259,9 +300,13 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 4:
-				System.out.println("Elija una locacion de preferencia");
+				
+				String[] opciones = {"Home Office", "Presencial", "Indistinto"};
+				eleccion = JOptionPane.showOptionDialog(null, "Elije una locacion de preferencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0])+1;
+				
+				/* System.out.println("Elija una locacion de preferencia");
 				System.out.println("1.Home Office      2.Presencial       3.Indistinto");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -278,9 +323,12 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 5:
-				System.out.println("Elija un rango etario");
+				String[] opciones4 = {"Menos de 40", "Entre 40 y 50", "Mas de 50"};
+				eleccion= JOptionPane.showOptionDialog(null, "Elije un rango etario", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones4, opciones4[0])+1;
+				
+			/*	System.out.println("Elija un rango etario");
 				System.out.println("1.Menos de 40      2.Entre 40 y 50    3.Más de 50");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -297,9 +345,12 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 6:
-				System.out.println("Elija una remuneracion");
+				String[] opciones1 = {"V1", "V2", "V3"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija una remuneración", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones1, opciones1[0])+1;
+				
+			/*	System.out.println("Elija una remuneracion");
 				System.out.println("1.V1               2.V2               3.V3");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -316,8 +367,11 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 7:
-				System.out.println("Elija un tipo de puesto");
-				System.out.println("1.Senior           2.Junior           3.Management");
+				String[] opciones3 = {"Senior", "Junior", "Management"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija un tipo de puesto", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones3, opciones3[0])+1;
+				
+				/*System.out.println("Elija un tipo de puesto");
+				System.out.println("1.Senior           2.Junior           3.Management"); */
 				eleccion = scanner.nextInt();
 				switch (eleccion)
 				{

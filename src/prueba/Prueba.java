@@ -69,7 +69,7 @@ public class Prueba {
 				String contra = scanner.nextLine();
 				try {
 					Usuario usuario = sistema.login(nomUsuario, contra);      //login
-					Usuario admin = new AdminAgencia("asdb","sdgf","dfg");     //como pongo todo esto fuera del catch??
+					Usuario admin = new AdminAgencia("asdb","sdgf","dfg");     
 					sistema.rondaDeEncuentrosLaborales((AdminAgencia) admin,(UsuarioInteractivo) usuario);       //ronda encuentros y elecciones
 					sistema.rondaContrataciones(); 
 				}
@@ -97,7 +97,9 @@ public class Prueba {
 				
 				Usuario usuario1 = new Empleado("messi","elpepe","abc123",0,"ronaldinho","22341235",41);
 				Empleado empleado1= (Empleado) usuario1;
+				
 				empleado1.setTicket(new TicketBuscaEmpleo(form));
+				
 				sistema.addEmpleado(empleado1); 
 				
 				

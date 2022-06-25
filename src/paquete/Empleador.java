@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import DecoratorRubros.IPersona;
 import excepciones.ListaNoGeneradaException;
 import subclasesDeAtributosDeFormulario.CargaCompleta;
@@ -185,8 +187,44 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 			break;
 		case 'a': // alta de un nuevo ticket. no verifico null porque puedo tener muchos tickets
 					// aquí
+			
 			FormularioFactory formularioFactory = new FormularioFactory();
 			System.out.println("Ahora deberás llenar tu nuevo formulario...");
+			String[] opciones = {"Home Office", "Presencial", "Indistinto"};
+			int locacion = JOptionPane.showOptionDialog(null, "Elije una locacion de preferencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones, opciones[0])+1;
+
+			
+			
+			
+			String[] opciones1 = {"V1", "V2", "V3"};
+			int remuneracion  = JOptionPane.showOptionDialog(null, "Elija una remuneración", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones1, opciones1[0])+1;
+
+
+			
+			String[] opciones2 = {"Media", "Completa", "Extendida"};
+			int cargaHoraria  = JOptionPane.showOptionDialog(null, "Elija una carga horaria", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones2, opciones2[0])+1;
+			
+
+
+			
+
+			String[] opciones3 = {"Senior", "Junior", "Management"};
+			int tipoDePuesto  = JOptionPane.showOptionDialog(null, "Elija un tipo de puesto", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones3, opciones3[0])+1;
+
+
+			String[] opciones4 = {"Menos de 40", "Entre 40 y 50", "Mas de 50"};
+			int rangoEtario  = JOptionPane.showOptionDialog(null, "Elije un rango etario", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones4, opciones4[0])+1;
+
+			String[] opciones5 = {"Nada", "Media", "Mucha"};
+			int experiencia  = JOptionPane.showOptionDialog(null, "Elija una experiencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones5, opciones5[0])+1;
+			
+			String[] opciones6 = {"Primario", "Secundario", "Terciario"};
+			int estudios  = JOptionPane.showOptionDialog(null, "Elija estudios", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones6, opciones6[0])+1;
+			
+			int empSolic = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la cantidad de empleados solicitados"));
+			
+			//--------------------------------------------------------//
+		/*	
 
 			System.out.println("Elija una locacion de preferencia");
 			System.out.println("1.Home Office      2.Presencial       3.Indistinto");
@@ -217,26 +255,35 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 			int estudios = scanner.nextInt();
 
 			System.out.println("Ingrese cantidad de empleados solicitados");
-			int empSolic = scanner.nextInt();
+			int empSolic = scanner.nextInt(); */
 
 			scanner.nextLine();
 
+			double aux;
 			ArrayList<Double> pesos = new ArrayList<Double>();
-			System.out.println("Ahora debe ingresar el peso de cada aspecto");
-			System.out.print("Locacion: ");
-			pesos.add(scanner.nextDouble());
-			System.out.print("Remuneracion: ");
-			pesos.add(scanner.nextDouble());
-			System.out.print("Carga horaria: ");
-			pesos.add(scanner.nextDouble());
-			System.out.print("Tipo de puesto: ");
-			pesos.add(scanner.nextDouble());
-			System.out.print("Rango etario: ");
-			pesos.add(scanner.nextDouble());
-			System.out.print("Experiencia previa: ");
-			pesos.add(scanner.nextDouble());
-			System.out.print("Estudios cursados: ");
-			pesos.add(scanner.nextDouble());
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso locación:"));
+			
+			//System.out.println("Ahora debe ingresar el peso de cada aspecto");
+			//System.out.print("Locacion: ");
+			pesos.add(aux);
+			//System.out.print("Remuneracion: ");
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso remuneración"));
+			pesos.add(aux);
+			//System.out.print("Carga horaria: ");
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso carga horaria:"));
+			pesos.add(aux);
+		//	System.out.print("Tipo de puesto: ");
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso tipo puesto:"));
+			pesos.add(aux);
+		//	System.out.print("Rango etario: ");
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso rango etario:"));
+			pesos.add(aux);
+		//	System.out.print("Experiencia previa: ");
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso experiencia previa:"));
+			pesos.add(aux);
+		//	System.out.print("Estudios cursados: ");
+			aux=Integer.parseInt(JOptionPane.showInputDialog("Peso estudios cursados:"));
+			pesos.add(aux);
 			scanner.nextLine();
 
 			FormularioDeBusqueda form = formularioFactory.getFormularioDeBusqueda(locacion, remuneracion, cargaHoraria,
@@ -250,18 +297,25 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 			System.out.println(this.tickets.get(i).toString());
 			break;
 		case 'm': // modifica un valor del formulario
-			System.out.println("¿Qué te gustaria modificar del formulario?");
+			
+			String[] opcionesModificar = {"Carga Horaria", "Estudios Cursados", "Experiencia","Locación","Rango Etario","Remuneración","Tipo de Puesto"};
+			int k = JOptionPane.showOptionDialog(null, "¿Qué elemento deseas modificar?", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesModificar, opcionesModificar[0])+1;
+			
+		/*	System.out.println("¿Qué te gustaria modificar del formulario?");
 			System.out.println(
 					"1. Carga Horaria \n 2.Estudios Cursados \n 3.Experiencia \n 4.Locación \n 5.Rango Etario \n 6. Remuneración \n 7.Tipo de Puesto");
 			String aux = scanner.nextLine();
-			int k = Integer.parseInt(aux);
-			int eleccion;
+			int k = Integer.parseInt(aux); */
+			int eleccion; 
 			switch (k)
 			{
 			case 1:
-				System.out.println("Elija una carga horaria");
+				String[] opcionesCargaHoraria = {"Media", "Completa", "Extendida"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija una carga horaria", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesCargaHoraria, opcionesCargaHoraria[0])+1;
+				
+				/*System.out.println("Elija una carga horaria");
 				System.out.println("1.Media            2.Completa         3.Extendida");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -278,9 +332,12 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 2:
-				System.out.println("Elija estudios");
+				String[] opcionesEstudios = {"Primario", "Secundario", "Terciario"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija estudios", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesEstudios, opcionesEstudios[0])+1;
+				
+				/*System.out.println("Elija estudios");
 				System.out.println("1.Primario         2.Secundario       3.Terciario");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -297,6 +354,9 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 3:
+				String[] opcionesExpe = {"Nada", "Media", "Mucha"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija una experiencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesExpe, opcionesExpe[0])+1;
+				
 				System.out.println("Elija una experiencia");
 				System.out.println("1.Nada             2.Media            3.Mucha");
 				eleccion = scanner.nextInt();
@@ -316,9 +376,12 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 4:
-				System.out.println("Elija una locacion de preferencia");
+				String[] opcionesLoc = {"Home Office", "Presencial", "Indistinto"};
+				eleccion = JOptionPane.showOptionDialog(null, "Elije una locacion de preferencia", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesLoc, opcionesLoc[0])+1;
+				
+			 /*	System.out.println("Elija una locacion de preferencia");
 				System.out.println("1.Home Office      2.Presencial       3.Indistinto");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -335,9 +398,12 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 5:
-				System.out.println("Elija un rango etario");
+				String[] opcionesRangoEt = {"Menos de 40", "Entre 40 y 50", "Mas de 50"};
+				eleccion= JOptionPane.showOptionDialog(null, "Elije un rango etario", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesRangoEt, opcionesRangoEt[0])+1;
+				
+			/*	System.out.println("Elija un rango etario");
 				System.out.println("1.Menos de 40      2.Entre 40 y 50    3.Más de 50");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -354,9 +420,12 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 6:
-				System.out.println("Elija una remuneracion");
+				String[] opcionesRem = {"V1", "V2", "V3"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija una remuneración", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesRem, opcionesRem[0])+1;
+				
+			/*	System.out.println("Elija una remuneracion");
 				System.out.println("1.V1               2.V2               3.V3");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
@@ -373,9 +442,12 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				}
 				break;
 			case 7:
-				System.out.println("Elija un tipo de puesto");
+				String[] opcionesPuesto = {"Senior", "Junior", "Management"};
+				eleccion  = JOptionPane.showOptionDialog(null, "Elija un tipo de puesto", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opcionesPuesto, opcionesPuesto[0])+1;
+				
+				/*System.out.println("Elija un tipo de puesto");
 				System.out.println("1.Senior           2.Junior           3.Management");
-				eleccion = scanner.nextInt();
+				eleccion = scanner.nextInt(); */
 				switch (eleccion)
 				{
 				case 1:
