@@ -7,4 +7,4 @@ Integrantes:
 - Vicente, Paola
 
 Breve Descripción:
-El presente trabajo describe las cuestiones más importantes del Sistema de Gestión de Búsquedas Laborales. También se incluyen diagramas de clases, y se explican los patrones de diseño utilizados. Además, se agregó un apartado de “aclaraciones” donde mencionamos las particularidades que establecimos en nuestro Sistema.
+El presente trabajo es un Sistema de Gestión de Búsquedas Laborales. En el informe se incluyen diagramas de clases, y se explican los patrones de diseño utilizados. Además, en el mismo se agregó un apartado de “aclaraciones” donde mencionamos las particularidades que establecimos en nuestro Sistema.
