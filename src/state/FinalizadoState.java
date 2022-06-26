@@ -13,6 +13,11 @@ public class FinalizadoState implements IState
 		super();
 		this.ticket = ticket;
 	}
+	
+	
+	/**
+	 * Continua con la gestion del ticket, dependiendo del estado del mismo.
+	 */
 
 	
 	@Override
@@ -21,21 +26,32 @@ public class FinalizadoState implements IState
 		System.out.println("Ticket finalizado. Imposible activar nuevamente");
 		
 	}
+	
+	/**
+	 * Continua con la ronda de encuentros laborales, dependiendo del estado de ambos tickets.
+	 */
+	
 
 	@Override
 	public void rondaEncuentros(UsuarioInteractivo usuario1, UsuarioInteractivo usuario2, Ticket ticket)
 	{
-		//solo funciona cuando ambos tickets estan activos
+		System.out.println("Error: ambos tickets deben estar activos.");
 		
 	}
-
+	
+	/**
+	 * Devuelve un String con el nombre del estado.
+	 */
 	@Override
 	public String diceEstado()
 	{
 		// TODO Auto-generated method stub
 		return "Finalizado";
 	}
-
+	
+	/**
+	 * Activa el ticket.
+	 */
 
 	@Override
 	public void activa()
@@ -44,7 +60,9 @@ public class FinalizadoState implements IState
 		
 	}
 
-
+	/**
+	 * Suspende el ticket.
+	 */
 	@Override
 	public void suspende()
 	{
@@ -52,7 +70,9 @@ public class FinalizadoState implements IState
 		
 	}
 
-
+	/**
+	 * Cancela el ticket.
+	 */
 	@Override
 	public void cancela()
 	{
@@ -60,7 +80,9 @@ public class FinalizadoState implements IState
 		
 	}
 
-
+	/**
+	 * Finaliza el ticket.
+	 */
 	@Override
 	public void finaliza()
 	{

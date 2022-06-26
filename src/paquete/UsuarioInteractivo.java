@@ -108,7 +108,7 @@ public abstract class UsuarioInteractivo extends Usuario implements Serializable
 
 	}
 	
-	public abstract void sigue(UsuarioInteractivo empleado, Ticket ticket);
+	public abstract void sigue(UsuarioInteractivo usuario, Ticket ticket);
 
 	@Override
 	public String toString()

@@ -1,3 +1,3 @@
-/*module Ventana {
+module Ventana {
     requires java.desktop;
-}*/
+}

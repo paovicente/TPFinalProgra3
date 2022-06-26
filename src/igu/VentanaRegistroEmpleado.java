@@ -1,23 +1,25 @@
 package igu;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.JButton;
-import java.awt.GridLayout;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
-import java.awt.Color;
 import javax.swing.border.LineBorder;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
 
-public class VentanaRegistroEmpleado extends JFrame {
+public class VentanaRegistroEmpleado extends JFrame implements KeyListener {
 
 	private JPanel contentPane;
 	private JPanel panel_tituloSistemaRegistro;
@@ -44,23 +46,8 @@ public class VentanaRegistroEmpleado extends JFrame {
 	private JPanel panel_inputTelefono;
 	private JPanel panel_labelEdad;
 	private JPanel panel_inputEdad;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRegistroEmpleado frame = new VentanaRegistroEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private ActionListener actionlistener;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -118,6 +105,7 @@ public class VentanaRegistroEmpleado extends JFrame {
 		this.panel_inputNombre.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 80));
 		
 		this.input_Nombre = new JTextField();
+		this.input_Nombre.addKeyListener(this);
 		this.input_Nombre.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		this.panel_inputNombre.add(this.input_Nombre);
 		this.input_Nombre.setColumns(10);
@@ -141,6 +129,7 @@ public class VentanaRegistroEmpleado extends JFrame {
 		this.panel_NombreApellido.add(this.panel_inputApellido);
 		
 		this.input_Apellido = new JTextField();
+		this.input_Apellido.addKeyListener(this);
 		this.input_Apellido.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		this.panel_inputApellido.add(this.input_Apellido);
 		this.input_Apellido.setColumns(10);
@@ -168,6 +157,7 @@ public class VentanaRegistroEmpleado extends JFrame {
 		this.panel_TelefonoEdad.add(this.panel_inputTelefono);
 		
 		this.input_Telefono = new JTextField();
+		this.input_Telefono.addKeyListener(this);
 		this.input_Telefono.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		this.panel_inputTelefono.add(this.input_Telefono);
 		this.input_Telefono.setColumns(10);
@@ -189,6 +179,7 @@ public class VentanaRegistroEmpleado extends JFrame {
 		this.panel_TelefonoEdad.add(this.panel_inputEdad);
 		
 		this.input_Edad = new JTextField();
+		this.input_Edad.addKeyListener(this);
 		this.input_Edad.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		this.panel_inputEdad.add(this.input_Edad);
 		this.input_Edad.setColumns(10);
@@ -200,8 +191,50 @@ public class VentanaRegistroEmpleado extends JFrame {
 		this.panel_botonRegistro.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		this.btn_Registrarse = new JButton("Registrarse");
+		this.btn_Registrarse.setEnabled(false);
 		this.btn_Registrarse.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.panel_botonRegistro.add(this.btn_Registrarse);
 	}
 
+	public ActionListener getActionlistener() {
+		return actionlistener;
+	}
+
+	public void setActionlistener(ActionListener actionlistener) {
+		this.btn_Registrarse.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
+
+	public JButton getBtn_Registrarse() {
+		return btn_Registrarse;
+	}
+
+	public JTextField getInput_Nombre() {
+		return input_Nombre;
+	}
+
+	public JTextField getInput_Apellido() {
+		return input_Apellido;
+	}
+
+	public JTextField getInput_Telefono() {
+		return input_Telefono;
+	}
+
+	public JTextField getInput_Edad() {
+		return input_Edad;
+	}
+
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		if (this.input_Nombre.getText().length()>0 && this.input_Apellido.getText().length()>0 && 
+				this.input_Edad.getText().length()>0 &&this.input_Telefono.getText().length()>0) {
+			this.btn_Registrarse.setEnabled(true);
+	     }else {
+	         this.btn_Registrarse.setEnabled(false);
+	     }
+	}
+	public void keyTyped(KeyEvent e) {
+	}
 }

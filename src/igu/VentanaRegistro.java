@@ -1,26 +1,29 @@
 package igu;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
-import java.awt.Font;
-import javax.swing.SwingConstants;
-import javax.swing.JRadioButton;
-import java.awt.SystemColor;
 import java.awt.Color;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JPasswordField;
-import java.awt.FlowLayout;
 import java.awt.Dimension;
-import javax.swing.BoxLayout;
+import java.awt.EventQueue;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
 
-public class VentanaRegistro extends JFrame {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.ButtonGroup;
+import java.awt.event.KeyListener;
+import java.awt.event.KeyEvent;
+
+public class VentanaRegistro extends JFrame implements KeyListener {
 
 	private JPanel contentPane;
 	private JPanel panel_titulo;
@@ -44,7 +47,9 @@ public class VentanaRegistro extends JFrame {
 	private JPanel panel_labelPassword;
 	private JPanel panel_inputPassword;
 	private JPanel panel_btnSiguiente;
-
+	private ActionListener actionlistener;
+	private final ButtonGroup buttonGroup = new ButtonGroup();
+	
 	/**
 	 * Launch the application.
 	 */
@@ -107,18 +112,21 @@ public class VentanaRegistro extends JFrame {
 		this.panel_opcionesTipoUsuario.setLayout(new GridLayout(3, 1, 0, 0));
 		
 		this.rdbtn_opcionEmpleado = new JRadioButton("Empleado");
+		buttonGroup.add(this.rdbtn_opcionEmpleado);
 		this.rdbtn_opcionEmpleado.setBackground(SystemColor.inactiveCaption);
 		this.rdbtn_opcionEmpleado.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtn_opcionEmpleado.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_opcionesTipoUsuario.add(this.rdbtn_opcionEmpleado);
 		
 		this.rdbtn_opcionEmpleador = new JRadioButton("Empleador");
+		buttonGroup.add(this.rdbtn_opcionEmpleador);
 		this.rdbtn_opcionEmpleador.setBackground(SystemColor.inactiveCaption);
 		this.rdbtn_opcionEmpleador.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtn_opcionEmpleador.setHorizontalAlignment(SwingConstants.CENTER);
 		this.panel_opcionesTipoUsuario.add(this.rdbtn_opcionEmpleador);
 		
 		this.rdbtn_opcionAdmin = new JRadioButton("Admin");
+		buttonGroup.add(this.rdbtn_opcionAdmin);
 		this.rdbtn_opcionAdmin.setBackground(SystemColor.inactiveCaption);
 		this.rdbtn_opcionAdmin.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.rdbtn_opcionAdmin.setHorizontalAlignment(SwingConstants.CENTER);
@@ -146,6 +154,7 @@ public class VentanaRegistro extends JFrame {
 		this.panel_inputNombreUsuario.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		this.input_NombreUsuario = new JTextField();
+		this.input_NombreUsuario.addKeyListener(this);
 		this.panel_inputNombreUsuario.add(this.input_NombreUsuario);
 		this.input_NombreUsuario.setFont(new Font("Century Gothic", Font.PLAIN, 14));
 		this.input_NombreUsuario.setColumns(10);
@@ -165,6 +174,7 @@ public class VentanaRegistro extends JFrame {
 		this.panel_IngresaDatosUsuario.add(this.panel_inputPassword);
 		
 		this.passwordField = new JPasswordField();
+		this.passwordField.addKeyListener(this);
 		this.passwordField.setPreferredSize(new Dimension(135, 25));
 		this.panel_inputPassword.add(this.passwordField);
 		
@@ -173,8 +183,57 @@ public class VentanaRegistro extends JFrame {
 		this.panel_IngresaDatosUsuario.add(this.panel_btnSiguiente);
 		
 		this.btn_Siguiente = new JButton("Siguiente");
+		this.btn_Siguiente.setEnabled(false);
 		this.btn_Siguiente.setFont(new Font("Century Gothic", Font.PLAIN, 16));
 		this.panel_btnSiguiente.add(this.btn_Siguiente);
 	}
 
+	public ActionListener getActionlistener() {
+		return actionlistener;
+	}
+
+	public void setActionlistener(ActionListener actionlistener) {
+		this.btn_Siguiente.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
+
+	public JRadioButton getRdbtn_opcionEmpleado() {
+		return rdbtn_opcionEmpleado;
+	}
+
+	public JRadioButton getRdbtn_opcionEmpleador() {
+		return rdbtn_opcionEmpleador;
+	}
+
+	public JRadioButton getRdbtn_opcionAdmin() {
+		return rdbtn_opcionAdmin;
+	}
+
+	public JTextField getInput_NombreUsuario() {
+		return input_NombreUsuario;
+	}
+
+	public JButton getBtn_Siguiente() {
+		return btn_Siguiente;
+	}
+
+	public JPasswordField getPasswordField() {
+		return passwordField;
+	}
+
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+
+	public void keyPressed(KeyEvent e) {
+	}
+	public void keyReleased(KeyEvent e) {
+		if (this.input_NombreUsuario.getText().length()>0 && this.passwordField.getText().length()>0) {
+			this.btn_Siguiente.setEnabled(true);
+	     }else {
+	         this.btn_Siguiente.setEnabled(false);
+	     }
+	}
+	public void keyTyped(KeyEvent e) {
+	}
 }

@@ -58,6 +58,10 @@ public class TicketSimplificado extends Observable//no se extiende de ticket!!
 		this.empleador = empleador;
 	}
 	
+	/**
+	 * Invoca a los metodos de la clase Observable setChanged y notifyObservers.
+	 */
+	
 	public void cambiaEstado()
 	{
 		this.setChanged();

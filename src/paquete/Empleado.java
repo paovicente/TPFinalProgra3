@@ -369,9 +369,7 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 			case 7:
 				String[] opciones3 = {"Senior", "Junior", "Management"};
 				eleccion  = JOptionPane.showOptionDialog(null, "Elija un tipo de puesto", "Clickea una opcion", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, opciones3, opciones3[0])+1;
-				
-				/*System.out.println("Elija un tipo de puesto");
-				System.out.println("1.Senior           2.Junior           3.Management"); */
+
 				eleccion = scanner.nextInt();
 				switch (eleccion)
 				{
@@ -461,7 +459,24 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 		} else
 			throw new ListaNoGeneradaException(this.getNombreDeUsuario());
 	}
+	
+	/**
+	 * Termina de calcular la compatibilidad de aspectos de los tickets del empleador y del empleado.<br> 
+	 * <b>Pre:</b>El empleador no puede ser null, el ticket no puede ser null y debe estar activo.<br>
+	 * <b>Post:</b>Inserta en la lista del ticket del empleado al empleador con su ticket y el puntaje calculado<br>
+	 * 
+	 * @param empleador: empleador con el que se quiere saber la compatibilidad de su ticket.<br>
+	 * @param ticket: ticket del empleador con el que se quiere saber la compatibilidad con el ticket del empleado.<br>
+	 */
 
+
+	public void sigue(UsuarioInteractivo empleador, Ticket ticket)
+	{
+		System.out.println("Recorriendo tickets de empleador..");
+		double aux = calculaAspectos(this, (TicketBuscaEmpleado) ticket); // asigno puntaje
+		this.getTicket().getLista().insertar((Empleador) empleador, (TicketBuscaEmpleado) ticket, aux);
+	}
+	
 	/**
 	 * Determina las elecciones de un empleado.<br>
 	 * <b>Pre: </b> El empleado no debe ser null. El empleado debe tener un ticket
@@ -473,13 +488,7 @@ public class Empleado extends UsuarioInteractivo implements Runnable
 	 * @param empleado: parámetro que indica el empleado para el cual se
 	 *                  determinarán sus elecciones.
 	 */
-
-	public void sigue(UsuarioInteractivo empleador, Ticket ticket)
-	{
-		System.out.println("Recorriendo tickets de empleador..");
-		double aux = calculaAspectos(this, (TicketBuscaEmpleado) ticket); // asigno puntaje
-		this.getTicket().getLista().insertar((Empleador) empleador, (TicketBuscaEmpleado) ticket, aux);
-	}
+	
 
 	public void rondaElecciones(Empleado empleado)
 	{

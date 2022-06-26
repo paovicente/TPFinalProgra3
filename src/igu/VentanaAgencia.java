@@ -1,8 +1,5 @@
 package igu;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,13 +9,13 @@ import javax.swing.JList;
 import java.awt.FlowLayout;
 import java.awt.Dimension;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-import javax.swing.BoxLayout;
 import java.awt.Insets;
 
 public class VentanaAgencia extends JFrame {
@@ -51,26 +48,11 @@ public class VentanaAgencia extends JFrame {
 	private JLabel label_MostrarEmpleados;
 	private JLabel label_MostrarEmpleadores;
 	private JButton btn_MuestraEmpleados;
-	private JButton btnNewButton;
+	private JButton btn_MuestraEmpleadores;
 	private JPanel panel_scrollPaneEmpleadores;
 	private JScrollPane scrollPane_1;
 	private JList listEmpleadores;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaAgencia frame = new VentanaAgencia();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private ActionListener actionlistener;
 
 	/**
 	 * Create the frame.
@@ -218,10 +200,10 @@ public class VentanaAgencia extends JFrame {
 		this.panel_btnMuestraEmpleadores.setBackground(SystemColor.inactiveCaption);
 		this.panel_actionEmpleadores.add(this.panel_btnMuestraEmpleadores);
 		
-		this.btnNewButton = new JButton("Mostrar");
-		this.btnNewButton.setMargin(new Insets(5, 20, 5, 20));
-		this.btnNewButton.setFont(new Font("Century Gothic", Font.PLAIN, 18));
-		this.panel_btnMuestraEmpleadores.add(this.btnNewButton);
+		this.btn_MuestraEmpleadores = new JButton("Mostrar");
+		this.btn_MuestraEmpleadores.setMargin(new Insets(5, 20, 5, 20));
+		this.btn_MuestraEmpleadores.setFont(new Font("Century Gothic", Font.PLAIN, 18));
+		this.panel_btnMuestraEmpleadores.add(this.btn_MuestraEmpleadores);
 		
 		this.panel_infoEmpleadores = new JPanel();
 		this.panel_infoEmpleadores.setBackground(SystemColor.inactiveCaption);
@@ -248,4 +230,11 @@ public class VentanaAgencia extends JFrame {
 		this.scrollPane_1.setViewportView(this.listEmpleadores);
 	}
 
+	public void setActionlistener(ActionListener actionlistener) {
+		this.btn_agregarAdmin.addActionListener(actionlistener);
+		this.btn_RondaContrataciones.addActionListener(actionlistener);
+		this.btn_MuestraEmpleados.addActionListener(actionlistener);
+		this.btn_MuestraEmpleadores.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
 }

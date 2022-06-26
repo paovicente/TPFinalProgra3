@@ -6,5 +6,5 @@ import DecoratorRubros.IPersona;
 
 public abstract class Persona implements Serializable, IPersona{
 	
-	public abstract boolean juridica();
+
 }

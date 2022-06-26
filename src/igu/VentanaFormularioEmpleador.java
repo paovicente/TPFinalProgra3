@@ -1,24 +1,24 @@
 package igu;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import javax.swing.JRadioButton;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JSpinner;
-import java.awt.SystemColor;
-import java.awt.Color;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
-import java.awt.Dimension;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaFormularioEmpleador extends JFrame {
 
@@ -109,23 +109,8 @@ public class VentanaFormularioEmpleador extends JFrame {
 	private JSpinner spinnerEstudios;
 	private JLabel lblCantidadEmpleadosSolicitados;
 	private JSpinner spinnerEmpSolic;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaFormularioEmpleador frame = new VentanaFormularioEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private ActionListener actionlistener;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -545,4 +530,83 @@ public class VentanaFormularioEmpleador extends JFrame {
 		this.panel_botones.add(this.btnFinalizar);
 	}
 
+	public JButton getBtnAgregar() {
+		return btnAgregar;
+	}
+
+	public JButton getBtnFinalizar() {
+		return btnFinalizar;
+	}
+
+	public JSpinner getSpinnerLocacion() {
+		return spinnerLocacion;
+	}
+
+	public JSpinner getSpinnerRemuneracion() {
+		return spinnerRemuneracion;
+	}
+
+	public JSpinner getSpinnerCargaHoraria() {
+		return spinnerCargaHoraria;
+	}
+
+	public JSpinner getSpinnerTipoPuesto() {
+		return spinnerTipoPuesto;
+	}
+
+	public JSpinner getSpinnerRangoEtario() {
+		return spinnerRangoEtario;
+	}
+	
+	public JSpinner getSpinnerExperiencia() {
+		return spinnerExperiencia;
+	}
+
+	public JSpinner getSpinnerEstudios() {
+		return spinnerEstudios;
+	}
+
+	public JSpinner getSpinnerEmpSolic() {
+		return spinnerEmpSolic;
+	}
+
+	public ActionListener getActionlistener() {
+		return actionlistener;
+	}
+
+	public void setActionlistener(ActionListener actionlistener) {
+		this.btnAgregar.addActionListener(actionlistener);
+		this.btnFinalizar.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
+
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+
+	public ButtonGroup getButtonGroup_1() {
+		return buttonGroup_1;
+	}
+
+	public ButtonGroup getButtonGroup_2() {
+		return buttonGroup_2;
+	}
+
+	public ButtonGroup getButtonGroup_3() {
+		return buttonGroup_3;
+	}
+
+	public ButtonGroup getButtonGroup_4() {
+		return buttonGroup_4;
+	}
+
+	public ButtonGroup getButtonGroup_5() {
+		return buttonGroup_5;
+	}
+
+	public ButtonGroup getButtonGroup_6() {
+		return buttonGroup_6;
+	}
+
+	
 }

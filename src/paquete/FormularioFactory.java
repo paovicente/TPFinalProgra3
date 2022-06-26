@@ -99,29 +99,7 @@ public class FormularioFactory
 	    	
 	    	return respuesta;
     	} else return null;
-       /* Locacion locacionEncapsulada = new Locacion();
-    	 CargaHoraria cargaHorariaEncapsulada = new CargaHoraria();               //esta es otra forma pero creo que es mas eficiente la de arriba porque crea los objetos solo cuando sabe que los usará
-    	 EstudiosCursados estudiosCursadosEncapsulado = new EstudiosCursados();
-    	 Experiencia experienciaEncapsulada = new Experiencia();
-    	 RangoEtario rangoEtarioEncapsulado = new RangoEtario();
-    	 Remuneracion remuneracionEncapsulada = new Remuneracion();
-    	 TipoPuesto tipoPuestoEncapsulado = new TipoPuesto(); */
-    	
-    	
-    	
-    	/*if(locacion.equals("HomeOffice"))
-    	    respuesta.setLocacion(new HomeOffice_Locacion_Decorator(locacionEncapsulada));
-    	else if (locacion.equals("Indistinto"))
-    	    respuesta.setLocacion(new Indistinto_Locacion_Decorator(locacionEncapsulada));
-    	else if (locacion.equals("Presencial"))
-    	    respuesta.setLocacion(new Presencial_Locacion_Decorator(locacionEncapsulada));
-    	
-    	if (cargaHoraria.equals("Media")) 
-    		respuesta.setCargahoraria(new CargaMediaDecorator(cargaHorariaEncapsulada));
-    	else if (cargaHoraria.equals("Completa"))
-    		respuesta.setCargahoraria(new CargaCompletaDecorator(cargaHorariaEncapsulada));
-    	else if (cargaHoraria.equals("Extendida"))
-    		respuesta.setCargahoraria(new CargaExtendidaDecorator(cargaHorariaEncapsulada)); */
+       
     	
     	
     }

@@ -15,6 +15,15 @@ public class BolsaDeTrabajo
 		return _instancia;
 	}
 
+	/**
+	 * Une al empleado con el ticket simplificado compatible en cuanto al tipo de trabajo (solo si esta disponible).<br>
+	 * <b>Pre: </b>Ni nombre ni tipoDeTrabajo pueden ser null<br>
+	 * <b>Post: </b>Devulve el ticket compatible en cuanto al tipo de trabajo. El estado del ticket pasa a estar en consulta.<br>
+	 * 
+	 * @param nombre: nombre del empleado<br>
+	 * @param tipoDeTrabajo: tipo de trabajo del empleado<br>
+	 */
+	
 	public synchronized TicketSimplificado buscaEmpleo(String nombre, String tipoDeTrabajo)
 	{
 		TicketSimplificado ticket = null;
@@ -41,7 +50,7 @@ public class BolsaDeTrabajo
 					ticket.setEstado("en consulta");
 					ticket.cambiaEstado(); //esto es para llamar a los metodos de observable
 					System.out
-							.println(nombre + " esta en proceso de consulta con '" + ticket.getEmpleador().getNombre());
+							.println(nombre + " esta en proceso de consulta con '" + ticket.getEmpleador().getNombre()+"'.\n");
 				} else
 					ticket = null;
 			}
@@ -49,24 +58,51 @@ public class BolsaDeTrabajo
 		}
 		return ticket;
 	}
+	
+	/**
+	 * Cuando el ticket no es compatible en cuanto a la locacion.<br>
+	 * <b>Pre: </b>Ni nombre ni ticket pueden ser null<br>
+	 * <b>Post: </b>El ticket vuelve a estar disponible. Notifica a los demas threads el cambio del estado.<br>
+	 * 
+	 * @param nombre: nombre del empleado<br>
+	 * @param ticket: ticket con el que no hubo compatibilidad en caunto a la locacion.<br>
+	 */
 
 	public synchronized void devuelveTicket(String nombre, TicketSimplificado ticket)
 	{
-		System.out.println(nombre + " no consigue trabajo porque su locacion no es compatible con la de "
-				+ ticket.getEmpleador().getNombre());
+		System.out.println(nombre + " no consigue trabajo porque su locacion no es compatible con la de '"
+				+ ticket.getEmpleador().getNombre()+"'.\n");
 		ticket.setEstado("disponible");
 		ticket.cambiaEstado(); //esto es para llamar a los metodos de observable
 		this.notifyAll();
 	}
+	
+	/**
+	 * Cuando el ticket es compatible en cuanto a la locacion.<br>
+	 * <b>Pre: </b>Ni nombre ni ticket pueden ser null<br>
+	 * <b>Post: </b>El ticket pasa a estar no disponible. Notifica a los demas threads el cambio del estado. Se elimina el ticket del array de tickets de la bolsa de trabajo.<br>
+	 * 
+	 * @param nombre: nombre del empleado<br>
+	 * @param ticket: ticket con el que hubo compatibilidad.<br>
+	 */
+
 
 	public synchronized void noDevuelveTicket(String nombre, TicketSimplificado ticket)
 	{
-		System.out.println(nombre + " consigue empleo con " + ticket.getEmpleador().getNombre() + ".");
+		System.out.println(nombre + " consigue empleo con '" + ticket.getEmpleador().getNombre() + "'.\n");
 		this.tickets.remove(ticket);
 		ticket.setEstado("no disponible");
 		ticket.cambiaEstado(); //esto es para llamar a los metodos de observable
 		this.notifyAll();
 	}
+	
+	/**
+	 * Agrega el ticket generado por el empleador al array de tickets de la bolsa de trabajo.<br>
+	 * <b>Pre: </b>ticket no puede ser null<br>
+	 * <b>Post: </b>Agrega un ticket array.<br>
+	 * 
+	 * @param ticket: ticket a agregar.<br>
+	 */
 
 	public synchronized void agregaEmpleo(TicketSimplificado ticket)
 	{

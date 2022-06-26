@@ -96,7 +96,7 @@ public class Sistema
 	 * Agrega un Empleador al Sistema.<br> 
 	 * <b>Pre: </b> empleador no puede ser null.<br>
 	 * <b>Post: </b>Se agrega un Empleador a la lista.<br>
-	 * @param empleado: Usuario de tipo Empleador que se agrega al Sistema.
+	 * @param empleador: Usuario de tipo Empleador que se agrega al Sistema.
 	 */
 	public void addEmpleador(Empleador empleador)
 	{
@@ -522,6 +522,11 @@ public class Sistema
 		}
 	}
 	
+	/**
+	 * Hace la escritura de la persistencia.<br> 
+	 * 
+	 */
+	
 	public void escribirPersistencia() throws IOException{  //catchear excepcion en el main
 		Objeto objeto = new Objeto(this.empleados,this.empleadores,this.contrataciones);
 		IPersistencia persistencia = new PersistenciaBIN();
@@ -532,6 +537,11 @@ public class Sistema
 		persistencia.cerrarOutput();
 		System.out.println("Archivo cerrado");
 	}
+	
+	/**
+	 * Hace la lectura de la persistencia.<br> 
+	 * 
+	 */
 	
 	public void leerPersistencia() throws ClassNotFoundException, IOException, Exception {
 		IPersistencia persistencia = new PersistenciaBIN();

@@ -1,29 +1,23 @@
 package igu;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.BoxLayout;
-import java.awt.FlowLayout;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.SwingConstants;
-import java.awt.Insets;
-import java.awt.Point;
-import java.awt.Font;
-import javax.swing.border.LineBorder;
-import java.awt.SystemColor;
-import javax.swing.JTextArea;
 import java.awt.Dimension;
-import javax.swing.JScrollPane;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Insets;
+import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 public class VentanaEmpleado extends JFrame {
 
@@ -42,29 +36,15 @@ public class VentanaEmpleado extends JFrame {
 	private JPanel panel_labelAddEmpleado;
 	private JPanel panel_btnAddEmpleado;
 	private JPanel panel_btnElecciones;
-	private JButton btn_mostrarElecciones_1;
+	private JButton btn_mostrarElecciones;
 	private JPanel panel_infoElecciones;
 	private JPanel panel_labelElecciones;
 	private JPanel panel_textAreaElecciones;
 	private JScrollPane scrollPane;
 	private JList list;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaEmpleado frame = new VentanaEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private ActionListener actionlistener;
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -132,10 +112,10 @@ public class VentanaEmpleado extends JFrame {
 		this.panel_actionElecciones.add(this.panel_btnElecciones);
 		this.panel_btnElecciones.setLayout(new FlowLayout(FlowLayout.RIGHT, 5, 0));
 		
-		this.btn_mostrarElecciones_1 = new JButton("Mostrar");
-		this.btn_mostrarElecciones_1.setMargin(new Insets(15, 30, 15, 30));
-		this.btn_mostrarElecciones_1.setFont(new Font("Century Gothic", Font.BOLD, 20));
-		this.panel_btnElecciones.add(this.btn_mostrarElecciones_1);
+		this.btn_mostrarElecciones = new JButton("Mostrar");
+		this.btn_mostrarElecciones.setMargin(new Insets(15, 30, 15, 30));
+		this.btn_mostrarElecciones.setFont(new Font("Century Gothic", Font.BOLD, 20));
+		this.panel_btnElecciones.add(this.btn_mostrarElecciones);
 		
 		this.panel_infoElecciones = new JPanel();
 		this.panel_getElecciones.add(this.panel_infoElecciones);
@@ -183,6 +163,49 @@ public class VentanaEmpleado extends JFrame {
 		this.btn_agregarEmpleado.setMargin(new Insets(15, 30, 15, 30));
 		this.btn_agregarEmpleado.setFont(new Font("Century Gothic", Font.BOLD, 20));
 		this.panel_btnAddEmpleado.add(this.btn_agregarEmpleado);
+	}
+
+
+	public JList getList() {
+		return list;
+	}
+
+
+	public void setList(JList list) {
+		this.list = list;
+	}
+
+
+	public ActionListener getActionlistener() {
+		return actionlistener;
+	}
+
+
+	public void setActionListener(ActionListener actionlistener) {
+		this.btn_rondaEncuentros.addActionListener(actionlistener);
+		this.btn_mostrarElecciones.addActionListener(actionlistener);
+		this.btn_agregarEmpleado.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
+
+
+	public JButton getBtn_rondaEncuentros() {
+		return btn_rondaEncuentros;
+	}
+
+
+	public JButton getBtn_agregarEmpleado() {
+		return btn_agregarEmpleado;
+	}
+
+
+	public JButton getBtn_mostrarElecciones() {
+		return btn_mostrarElecciones;
+	}
+
+
+	public JScrollPane getScrollPane() {
+		return scrollPane;
 	}
 
 }

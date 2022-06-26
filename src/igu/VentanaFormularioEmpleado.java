@@ -16,6 +16,8 @@ import javax.swing.ButtonGroup;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.UIManager;
 
@@ -81,22 +83,7 @@ public class VentanaFormularioEmpleado extends JFrame {
 	private final ButtonGroup buttonGroup_6 = new ButtonGroup();
 	private JPanel panel_btnContinuar;
 	private JButton btn_Continuar;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaFormularioEmpleado frame = new VentanaFormularioEmpleado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private ActionListener actionlistener;
 
 	/**
 	 * Create the frame.
@@ -387,4 +374,124 @@ public class VentanaFormularioEmpleado extends JFrame {
 		this.panel_btnContinuar.add(this.btn_Continuar);
 	}
 
+	public JRadioButton getRdbtnHomeOfficeEmpleado() {
+		return rdbtnHomeOfficeEmpleado;
+	}
+
+	public JRadioButton getRdbtnPresencialEmpleado() {
+		return rdbtnPresencialEmpleado;
+	}
+
+	public JRadioButton getRdbtnIndistintoEmpleado() {
+		return rdbtnIndistintoEmpleado;
+	}
+
+	public JRadioButton getRdbtnRemuneracion1Empleado() {
+		return rdbtnRemuneracion1Empleado;
+	}
+
+	public JRadioButton getRdbtnRemuneracion2Empleado() {
+		return rdbtnRemuneracion2Empleado;
+	}
+
+	public JRadioButton getRdbtnRemuneracion3Empleado() {
+		return rdbtnRemuneracion3Empleado;
+	}
+
+	public JRadioButton getRdbtnMedia() {
+		return rdbtnMedia;
+	}
+
+	public JRadioButton getRdbtnCompleta() {
+		return rdbtnCompleta;
+	}
+
+	public JRadioButton getRdbtnExtendida() {
+		return rdbtnExtendida;
+	}
+
+	public JRadioButton getRdbtnSenior() {
+		return rdbtnSenior;
+	}
+
+	public JRadioButton getRdbtnJunior() {
+		return rdbtnJunior;
+	}
+
+	public JRadioButton getRdbtnManagement() {
+		return rdbtnManagement;
+	}
+
+	public JRadioButton getRdbtnMenosDe40() {
+		return rdbtnMenosDe40;
+	}
+
+	public JRadioButton getRdbtnEntre40y50() {
+		return rdbtnEntre40y50;
+	}
+
+	public JRadioButton getRdbtnMayorde50() {
+		return rdbtnMayorde50;
+	}
+
+	public JRadioButton getRdbtnNada() {
+		return rdbtnNada;
+	}
+
+	public JRadioButton getRdbtnExpeMedia() {
+		return rdbtnExpeMedia;
+	}
+
+	public JRadioButton getRdbtnMucha() {
+		return rdbtnMucha;
+	}
+
+	public JRadioButton getRdbtnPrimario() {
+		return rdbtnPrimario;
+	}
+
+	public JRadioButton getRdbtnSecundario() {
+		return rdbtnSecundario;
+	}
+
+	public JRadioButton getRdbtnTerciario() {
+		return rdbtnTerciario;
+	}
+
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+
+	public ButtonGroup getButtonGroup_1() {
+		return buttonGroup_1;
+	}
+
+	public ButtonGroup getButtonGroup_2() {
+		return buttonGroup_2;
+	}
+
+	public ButtonGroup getButtonGroup_3() {
+		return buttonGroup_3;
+	}
+
+	public ButtonGroup getButtonGroup_4() {
+		return buttonGroup_4;
+	}
+
+	public ButtonGroup getButtonGroup_5() {
+		return buttonGroup_5;
+	}
+
+	public ButtonGroup getButtonGroup_6() {
+		return buttonGroup_6;
+	}
+
+	public JButton getBtn_Continuar() {
+		return btn_Continuar;
+	}
+
+	public void setActionlistener(ActionListener actionlistener) {
+		this.btn_Continuar.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
 }

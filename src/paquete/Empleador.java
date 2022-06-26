@@ -55,10 +55,12 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 		// this.juridica = juridica;
 		this.persona = persona;
 	}
-
+	/**
+	 * Muestra una lista para cada ticket
+	 */
 	@Override
 	public void muestraLista()
-	{ // mostrará una lista para cada ticket
+	{  
 		int i = 1;
 		Iterator<TicketBuscaEmpleado> iterador = tickets.iterator();
 		while (iterador.hasNext())
@@ -68,6 +70,7 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 			i++;
 		}
 	}
+
 
 	public ListaDelEmpleador getElecciones()
 	{
@@ -470,6 +473,7 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 		}
 	}
 
+
 	/**
 	 * Genera la lista de asignación del empleador (ListaDelEmpleador) <br>
 	 * <b>Pre: </b> El Empleador debe tener al menos un ticket en su ArrayList de
@@ -527,6 +531,15 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 				throw new ListaNoGeneradaException(this.getNombreDeUsuario());
 		}
 	}
+	
+	/**
+	 * Termina de calcular la compatibilidad de aspectos de los tickets del empleador y del empleado.<br> 
+	 * <b>Pre:</b>El empleado no puede ser null, el ticket no puede ser null y debe estar activo.<br>
+	 * <b>Post:</b>Inserta en la lista del empleador al empleado con el puntaje calculado<br>
+	 * 
+	 * @param empleado: empleado con el que se quiere saber la compatibilidad de su ticket.<br>
+	 * @param ticket: ticket del empleador con el que se quiere saber la compatibilidad con el ticket del empleado.<br>
+	 */
 
 	public void sigue(UsuarioInteractivo empleado, Ticket ticket)
 	{
@@ -588,19 +601,7 @@ public class Empleador extends UsuarioInteractivo implements Runnable
 	{
 		double aux = 0;
 		super.calcularComision(formulario);
-		aux = this.persona.calcularComision(); // double dispatch agregado aca!!
-
-		// este de abajo era el codigo anterior, estaba asi porq no teniamos creadas las
-		// clases de los tipos de persona ni los rubros: tuve q crearlas xd
-
-		/*
-		 * if (!this.juridica){ if (this.rubro.equalsIgnoreCase("Salud")) aux = 0.6;
-		 * else if (this.rubro.equalsIgnoreCase("Comercio local")) aux = 0.7; else if
-		 * (this.rubro.equalsIgnoreCase("Comercio internacional")) aux = 0.8; } else {
-		 * if (this.rubro.equalsIgnoreCase("Salud")) aux = 0.8; else if
-		 * (this.rubro.equalsIgnoreCase("Comercio local")) aux = 0.9; else if
-		 * (this.rubro.equalsIgnoreCase("Comercio internacional")) aux = 1.; }
-		 */
+		aux = this.persona.calcularComision(); 
 
 		System.out.println(aux * formulario.getRemuneracion().getValor() - this.getPuntaje() * 0.01);
 

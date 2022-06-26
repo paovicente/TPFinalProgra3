@@ -12,6 +12,8 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import java.awt.Font;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 
@@ -23,7 +25,8 @@ public class VentanaElecciones extends JFrame {
 	private JButton btnAgregar;
 	private JScrollPane scrollPane;
 	private JList list;
-
+	private ActionListener actionlistener;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -73,4 +76,24 @@ public class VentanaElecciones extends JFrame {
 		this.panel_btnAgregar.add(this.btnAgregar);
 	}
 
+	public JButton getBtnAgregar() {
+		return btnAgregar;
+	}
+
+	public JList getList() {
+		return list;
+	}
+
+	public void setList(JList list) {
+		this.list = list;
+	}
+
+	public ActionListener getActionlistener() {
+		return actionlistener;
+	}
+
+	public void setActionlistener(ActionListener actionlistener) {
+		this.btnAgregar.addActionListener(actionlistener);
+		this.actionlistener = actionlistener;
+	}
 }

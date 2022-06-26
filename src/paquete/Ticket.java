@@ -59,27 +59,51 @@ public abstract class Ticket implements Serializable
     	this.estado.rondaEncuentros(usuario1, usuario2, ticket);
     }
     
-
+    
+    /**
+	 * Cambia el estado del ticket a activado.<br> 
+	 * 
+	 */
     
     public void activa()
     {
     	this.estado.activa();
     }
     
+    /**
+	 * Cambia el estado del ticket a suspendido.<br> 
+	 * 
+	 */
+    
     public void suspende()
     {
     	this.estado.suspende();
     }
+    
+    /**
+	 * Cambia el estado del ticket a cancelado.<br> 
+	 * 
+	 */
     
     public void cancela()
     {
     	this.estado.cancela();
     }
     
+    /**
+	 * Cambia el estado del ticket a finalizado.<br> 
+	 * 
+	 */
+    
     public void finaliza()
     {
     	this.estado.finaliza();
     }
+    
+    /**
+	 * Retorna un string con el nombre del estado.<br> 
+	 * 
+	 */
     
     public String diceEstado()
     {

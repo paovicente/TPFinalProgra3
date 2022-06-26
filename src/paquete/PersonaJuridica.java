@@ -7,6 +7,9 @@ public class PersonaJuridica extends Persona{
 		return true;
 	}
 
+	/**
+	 * Calcula la comision a cobrar a una Persona Juridica.<br> 
+	 */
 	@Override
 	public double calcularComision()
 	{

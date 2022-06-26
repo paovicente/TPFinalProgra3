@@ -8,6 +8,9 @@ public class PersonaFisica extends Persona
 		return false;
 	}
 
+	/**
+	 * Calcula la comision a cobrar a una Persona Fisica.<br> 
+	 */
 	@Override
 	public double calcularComision()
 	{

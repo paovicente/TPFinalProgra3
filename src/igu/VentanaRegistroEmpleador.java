@@ -1,25 +1,25 @@
 package igu;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import java.awt.GridLayout;
-import javax.swing.JLabel;
 import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
-import java.awt.Font;
 import java.awt.Dimension;
-import java.awt.Insets;
-import javax.swing.ButtonGroup;
-import javax.swing.border.LineBorder;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.SystemColor;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 public class VentanaRegistroEmpleador extends JFrame {
 
@@ -48,22 +48,8 @@ public class VentanaRegistroEmpleador extends JFrame {
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private JPanel panel_LabelPersona;
 	private JPanel panel_LabelRubro;
+	private ActionListener actionListener;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRegistroEmpleador frame = new VentanaRegistroEmpleador();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -202,4 +188,30 @@ public class VentanaRegistroEmpleador extends JFrame {
 		this.panel_BotonRegistrarse.add(this.buttonRegistrarse);
 	}
 
+	public ActionListener getActionListener() {
+		return actionListener;
+	}
+
+	public void setActionListener(ActionListener actionListener) {
+		this.buttonRegistrarse.addActionListener(actionListener);
+		this.actionListener = actionListener;
+	}
+
+	public JButton getButtonRegistrarse() {
+		return buttonRegistrarse;
+	}
+
+	public JTextField getInputNombreEmpleador() {
+		return inputNombreEmpleador;
+	}
+
+	public ButtonGroup getButtonGroup() {
+		return buttonGroup;
+	}
+
+	public ButtonGroup getButtonGroup_1() {
+		return buttonGroup_1;
+	}
+
+	
 }
